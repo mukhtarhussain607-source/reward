@@ -9,11 +9,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Asli Masala">
-  <link class="pwa-icon" rel="apple-touch-icon" href="https://img.icons8.com/emoji/192/chili-pepper.png">
-
-  <!-- Link to the physical, secure Web Manifest file required for PWA installation -->
-  <link rel="manifest" href="manifest.json">
-
+  
   <!-- CSS Framework Tailwind, Animate.css, Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -29,12 +25,12 @@
   <style>
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #f8fafc;
+      background-color: #fcfbfa; /* Soft organic linen background */
     }
-    .brand-crimson { color: #D32F2F; }
-    .bg-brand-crimson { background-color: #D32F2F; }
-    .bg-brand-crimson-hover:hover { background-color: #B71C1C; }
-    .border-brand-crimson { border-color: #D32F2F; }
+    .brand-gold { color: #D97706; }
+    .bg-brand-gold { background-color: #D97706; }
+    .bg-brand-gold-hover:hover { background-color: #B45309; }
+    .border-brand-gold { border-color: #D97706; }
     
     /* Elegant Custom Scrollbar */
     ::-webkit-scrollbar {
@@ -42,14 +38,14 @@
       height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #f1f1f1;
+      background: #f5f4f0;
     }
     ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
+      background: #dcdad2;
       border-radius: 4px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
+      background: #c5c3bc;
     }
 
     /* Interactive Stamp Grid Animations */
@@ -57,7 +53,7 @@
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .stamp-cell-animate:hover {
-      transform: scale(1.08);
+      transform: translateY(-4px) scale(1.04);
     }
 
     /* HTML5 QR Scanner Viewfinder Custom Premium Styling */
@@ -76,7 +72,7 @@
       border-radius: 1rem;
     }
     #qr-reader__dashboard {
-      display: none !important; /* Hide standard plain text configuration links in viewfinder */
+      display: none !important; 
     }
 
     /* Keyframes for sliding progress bar inside premium loader */
@@ -96,16 +92,16 @@
   <div id="loading-overlay" class="fixed inset-0 bg-slate-950 z-[9999] flex flex-col items-center justify-center transition-all duration-700 ease-in-out">
     <div class="relative flex flex-col items-center justify-center p-8 text-center max-w-sm">
       <!-- Glowing brand background aura -->
-      <div class="absolute w-72 h-72 bg-red-600/10 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute w-72 h-72 bg-amber-500/10 rounded-full blur-3xl animate-pulse"></div>
       
       <!-- Spice Grinding / Spinning Masala Animation -->
       <div class="relative mb-6 flex items-center justify-center">
         <!-- Golden outer spice orbit ring -->
         <div class="w-28 h-24 rounded-full border-4 border-dashed border-amber-500/30 animate-spin" style="animation-duration: 10s;"></div>
         <!-- Sparkling spice particles -->
-        <div class="absolute top-1 left-4 w-3 h-3 bg-red-500 rounded-full animate-ping"></div>
+        <div class="absolute top-1 left-4 w-3 h-3 bg-amber-500 rounded-full animate-ping"></div>
         <div class="absolute bottom-1 right-4 w-2.5 h-2.5 bg-amber-400 rounded-full animate-ping" style="animation-delay: 0.8s;"></div>
-        <div class="absolute top-1/2 right-1 w-2 h-2 bg-emerald-500 rounded-full animate-ping" style="animation-delay: 1.5s;"></div>
+        <div class="absolute top-1/2 right-1 w-2 h-2 bg-yellow-500 rounded-full animate-ping" style="animation-delay: 1.5s;"></div>
         
         <!-- Bouncing Chili central asset icon -->
         <div class="absolute inset-0 flex items-center justify-center">
@@ -119,14 +115,14 @@
       
       <!-- Dynamic Rotating Culinary Slogans -->
       <div class="h-6 overflow-hidden mb-5">
-        <p id="loading-slogan" class="text-red-500 font-extrabold text-xs uppercase tracking-widest animate__animated animate__fadeInUp">
+        <p id="loading-slogan" class="text-amber-500 font-extrabold text-xs uppercase tracking-widest animate__animated animate__fadeInUp">
           Blending Fresh Spices...
         </p>
       </div>
       
       <!-- Infinite custom progress bar container -->
       <div class="w-48 bg-slate-800 h-1.5 rounded-full overflow-hidden">
-        <div class="bg-gradient-to-r from-red-600 to-amber-500 h-full w-full rounded-full origin-left animate-loading-bar"></div>
+        <div class="bg-gradient-to-r from-amber-600 to-amber-400 h-full w-full rounded-full origin-left animate-loading-bar"></div>
       </div>
     </div>
   </div>
@@ -135,22 +131,16 @@
   <header class="bg-slate-900 text-white py-4 px-6 shadow-md border-b border-slate-800">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
       <div class="flex items-center space-x-3">
-        <div class="p-2.5 bg-red-600 rounded-xl flex items-center justify-center">
-          <i data-lucide="sparkles" class="w-6 h-6 text-white animate-pulse"></i>
+        <div class="p-2.5 bg-amber-500 rounded-xl flex items-center justify-center shadow-md">
+          <i data-lucide="sparkles" class="w-6 h-6 text-slate-950"></i>
         </div>
         <div>
-          <h1 id="header-brand-name" class="font-extrabold text-xl tracking-wide uppercase">Asli Masala</h1>
-          <p class="text-xs text-red-400 font-semibold tracking-wider">PREMIUM REWARDS CLUB</p>
+          <h1 id="header-brand-name" class="font-extrabold text-xl tracking-wide uppercase text-amber-500">Asli Masala</h1>
+          <p class="text-[10px] text-amber-600 font-semibold tracking-wider">Aromatic Reward Passport</p>
         </div>
       </div>
       <div class="flex items-center space-x-3">
-        <!-- Floating install app button inside header context -->
-        
-        <span id="connection-badge" class="px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all duration-300">
-          <span class="w-2.5 h-2.5 rounded-full animate-ping"></span>
-          <span id="badge-text">Initializing...</span>
-        </span>
-        <button id="logout-btn" onclick="logout()" class="hidden bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-1.5 px-4 rounded-lg text-sm border border-slate-700 transition">
+        <button id="logout-btn" onclick="logout()" class="hidden bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-1.5 px-4 rounded-xl text-sm border border-slate-700 transition">
           Sign Out
         </button>
       </div>
@@ -164,9 +154,8 @@
     <section id="view-landing" class="view hidden max-w-lg mx-auto py-8">
       <div class="bg-white rounded-[2.5rem] shadow-2xl p-8 border border-slate-100 text-center animate__animated animate__fadeIn">
         <div id="landing-logo-container" class="mb-6 flex justify-center">
-          <!-- Fallback dynamic SVG logo -->
-          <div class="w-32 h-32 bg-red-50 rounded-full flex items-center justify-center border border-red-100 shadow-inner">
-            <span class="text-6xl">🌶️</span>
+          <div class="w-32 h-32 bg-amber-50 rounded-full flex items-center justify-center border border-amber-100 shadow-inner">
+            <span class="text-6xl drop-shadow-md">🌶️</span>
           </div>
         </div>
         <h2 id="welcome-title" class="text-3xl font-extrabold text-slate-900 tracking-tight">Asli Masala Rewards</h2>
@@ -175,20 +164,20 @@
         </p>
 
         <!-- Dynamic Incentive Highlight Card -->
-        <div class="my-6 p-5 bg-gradient-to-br from-slate-50 to-slate-100 rounded-3xl border border-slate-200/60 text-left">
-          <h4 class="text-xs font-bold tracking-widest text-red-600 uppercase">CURRENT CAMPAIGN</h4>
+        <div class="my-6 p-5 bg-gradient-to-br from-slate-50 to-amber-50/40 rounded-3xl border border-slate-200/60 text-left">
+          <h4 class="text-xs font-bold tracking-widest text-amber-600 uppercase">CURRENT CAMPAIGN</h4>
           <h3 id="incentive-reward-name" class="text-xl font-bold text-slate-800 mt-1">Free 500g Haldi Powder</h3>
           <p class="text-slate-500 text-xs mt-1">
             Achieve <span id="incentive-target-count" class="font-bold text-slate-900">10</span> loyalty stamps and swap your card for this amazing rewards pack instantly.
           </p>
           <div class="mt-3 flex items-center gap-2 text-xs font-semibold text-slate-600">
-            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-500"></i>
+            <i data-lucide="check-circle" class="w-4 h-4 text-amber-500"></i>
             <span>Get 1 Welcome stamp free upon registration!</span>
           </div>
         </div>
 
         <div class="space-y-3">
-          <button onclick="switchView('register')" class="w-full bg-brand-crimson hover:bg-brand-crimson-hover text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
+          <button onclick="switchView('register')" class="w-full bg-brand-gold hover:bg-brand-gold-hover text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
             Create Reward Account
           </button>
           <button onclick="switchView('login')" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
@@ -216,18 +205,18 @@
         <form id="login-form" onsubmit="handleLogin(event)" class="mt-8 space-y-5">
           <div>
             <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Registered Mobile</label>
-            <input type="tel" id="login-mobile" placeholder="10-Digit Mobile" required maxlength="10" pattern="\d{10}" oninput="this.value = this.value.replace(/\D/g, '')" class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition">
+            <input type="tel" id="login-mobile" placeholder="10-Digit Mobile" required maxlength="10" pattern="\d{10}" oninput="this.value = this.value.replace(/\D/g, '')" class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Account Password</label>
-            <input type="password" id="login-password" placeholder="••••••••" required class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition">
+            <input type="password" id="login-password" placeholder="••••••••" required class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition">
           </div>
-          <button type="submit" class="w-full bg-brand-crimson hover:bg-brand-crimson-hover text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition">
+          <button type="submit" class="w-full bg-brand-gold hover:bg-brand-gold-hover text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition">
             Sign In
           </button>
         </form>
         <p class="text-center text-xs text-slate-400 mt-6">
-          Don't have an account? <a href="#" onclick="switchView('register')" class="text-red-600 font-bold hover:underline">Sign up free</a>
+          Don't have an account? <a href="#" onclick="switchView('register')" class="text-amber-600 font-bold hover:underline">Sign up free</a>
         </p>
       </div>
     </section>
@@ -245,27 +234,27 @@
           <div>
             <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2.5">Your Full Name</label>
             <!-- Custom input regex to reject numerics or symbols immediately while typing -->
-            <input type="text" id="reg-name" placeholder="John Doe" required pattern="[A-Za-z\s]+" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-red-500 focus:outline-none transition">
+            <input type="text" id="reg-name" placeholder="John Doe" required pattern="[A-Za-z\s]+" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-amber-500 focus:outline-none transition">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2.5">Mobile Number</label>
             <!-- Custom input regex to limit to exactly 10 numeric characters -->
-            <input type="tel" id="reg-mobile" placeholder="10-Digit Mobile Number" required maxlength="10" pattern="\d{10}" oninput="this.value = this.value.replace(/\D/g, '')" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-red-500 focus:outline-none transition">
+            <input type="tel" id="reg-mobile" placeholder="10-Digit Mobile Number" required maxlength="10" pattern="\d{10}" oninput="this.value = this.value.replace(/\D/g, '')" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-amber-500 focus:outline-none transition">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2.5">Choose Password</label>
-            <input type="password" id="reg-password" placeholder="Min. 4 Characters" required minlength="4" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-red-500 focus:outline-none transition">
+            <input type="password" id="reg-password" placeholder="Min. 4 Characters" required minlength="4" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-amber-500 focus:outline-none transition">
           </div>
           <div class="flex items-start gap-2 py-2">
-            <input type="checkbox" id="reg-terms" required class="mt-1 accent-red-600 h-4 w-4">
+            <input type="checkbox" id="reg-terms" required class="mt-1 accent-amber-600 h-4 w-4">
             <span class="text-xs text-slate-500 leading-snug">I accept terms and understand stamps are valid only at official outlets.</span>
           </div>
-          <button type="submit" class="w-full bg-brand-crimson hover:bg-brand-crimson-hover text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition">
+          <button type="submit" class="w-full bg-brand-gold hover:bg-brand-gold-hover text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition">
             Register & Claim Welcome Stamp!
           </button>
         </form>
         <p class="text-center text-xs text-slate-400 mt-6">
-          Already registered? <a href="#" onclick="switchView('login')" class="text-red-600 font-bold hover:underline">Log in here</a>
+          Already registered? <a href="#" onclick="switchView('login')" class="text-amber-600 font-bold hover:underline">Log in here</a>
         </p>
       </div>
     </section>
@@ -276,7 +265,7 @@
       <!-- Greeting and Header Block -->
       <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
         <div>
-          <span class="px-3 py-1 bg-red-50 text-red-600 text-xs font-extrabold rounded-full tracking-wide">CUSTOMER PASSPORT</span>
+          <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-extrabold rounded-full tracking-wide">CUSTOMER PASSPORT</span>
           <h2 class="text-2xl font-black text-slate-800 mt-2">Namaste, <span id="customer-display-name">Guest</span>!</h2>
           <p class="text-xs text-slate-400 mt-0.5">ID: <span id="customer-display-id" class="font-mono">CUST-000000</span> | Registered: <span id="customer-join-date">Loading...</span></p>
         </div>
@@ -285,7 +274,7 @@
             <i data-lucide="user-cog" class="w-5 h-5"></i>
           </button>
           <div class="px-4 py-2 bg-slate-900 text-white rounded-xl text-center">
-            <div id="customer-stat-stamps" class="text-xl font-bold">0</div>
+            <div id="customer-stat-stamps" class="text-xl font-bold text-amber-400">0</div>
             <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Active Stamps</div>
           </div>
         </div>
@@ -301,8 +290,8 @@
           <span id="card-progress-percentage" class="text-sm font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">0%</span>
         </div>
 
-        <!-- Stamp Progress Grid -->
-        <div id="stamp-grid" class="grid grid-cols-5 sm:grid-cols-5 md:grid-cols-5 gap-4">
+        <!-- Highly Responsive dynamic grid preventing text squishing/overlaps across all breakpoints -->
+        <div id="stamp-grid" class="grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-5 gap-3">
           <!-- Dynamically populated stamps cells -->
         </div>
 
@@ -311,7 +300,7 @@
           <div class="flex items-start gap-4">
             <span class="p-3 bg-amber-500 text-white rounded-xl text-2xl">🎉</span>
             <div>
-              <h4 class="font-extrabold text-amber-900 text-lg">Reward Target Unlocked!</h4>
+              <h4 class="font-extrabold text-amber-950 text-lg">Reward Target Unlocked!</h4>
               <p class="text-amber-800 text-sm mt-1">
                 Take this passport to store checkout to claim your <strong id="reward-target-claim-desc">500g Haldi Powder Free</strong>.
               </p>
@@ -321,13 +310,13 @@
       </div>
 
       <!-- Customer Reference QR Code Scan Panel -->
-      <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-100 text-center">
+      <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-100 text-center flex flex-col items-center">
         <h4 class="text-xs font-bold text-slate-400 tracking-wider uppercase mb-1">STAMP CARD IDENTIFICATION QR</h4>
         <p class="text-slate-500 text-xs mb-4">Let the merchant scan this to easily adjust stamps or process redemptions.</p>
         
-        <!-- Larger and highly visible dynamic QR container frame -->
-        <div class="flex justify-center bg-slate-50 p-8 rounded-3xl border-2 border-dashed border-red-500/30 max-w-[280px] mx-auto mb-3 shadow-inner">
-          <div id="customer-id-qr-box" class="p-3 bg-white rounded-2xl shadow-md"></div>
+        <!-- Larger and highly visible dynamic QR container frame (enlarged to 280x280px total box size) -->
+        <div class="flex justify-center bg-slate-50 p-8 rounded-3xl border-2 border-dashed border-amber-500/30 max-w-[320px] w-full mx-auto mb-3 shadow-inner">
+          <div id="customer-id-qr-box" class="p-4 bg-white rounded-2xl shadow-md flex items-center justify-center"></div>
         </div>
         <p id="customer-id-string" class="text-sm font-bold font-mono tracking-widest text-slate-600">CUST-000000</p>
       </div>
@@ -345,13 +334,13 @@
         <form id="edit-profile-form" onsubmit="handleProfileUpdate(event)" class="space-y-4">
           <div>
             <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Display Name</label>
-            <input type="text" id="edit-profile-name" required pattern="[A-Za-z\s]+" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500 transition">
+            <input type="text" id="edit-profile-name" required pattern="[A-Za-z\s]+" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 transition">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-600 uppercase mb-2">New Password</label>
-            <input type="password" id="edit-profile-password" placeholder="Leave blank to keep current" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500 transition">
+            <input type="password" id="edit-profile-password" placeholder="Leave blank to keep current" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 transition">
           </div>
-          <button type="submit" class="w-full mt-2 bg-brand-crimson hover:bg-brand-crimson-hover text-white font-bold py-3 px-6 rounded-xl shadow-md transition">
+          <button type="submit" class="w-full mt-2 bg-brand-gold hover:bg-brand-gold-hover text-white font-bold py-3 px-6 rounded-xl shadow-md transition">
             Save Modifications
           </button>
         </form>
@@ -364,7 +353,7 @@
       <!-- Admin Subheader Panel -->
       <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <span class="px-3 py-1 bg-slate-900 text-white text-xs font-extrabold rounded-full tracking-wide uppercase">MANAGEMENT CONTROL SUITE</span>
+          <span class="px-3 py-1 bg-slate-900 text-amber-500 text-xs font-extrabold rounded-full tracking-wide uppercase">MANAGEMENT CONTROL SUITE</span>
           <h2 class="text-2xl font-black text-slate-800 mt-2">Asli Masala Admin Dashboard</h2>
           <p class="text-xs text-slate-400 mt-0.5">Control live profiles, inspect registration velocity trends, and award stamps.</p>
         </div>
@@ -384,7 +373,7 @@
       <!-- Live High-Fidelity KPI Stats Bar -->
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
-          <div class="p-3 bg-red-100 text-red-600 rounded-xl">
+          <div class="p-3 bg-amber-50 text-amber-600 rounded-xl">
             <i data-lucide="users" class="w-6 h-6"></i>
           </div>
           <div>
@@ -393,7 +382,7 @@
           </div>
         </div>
         <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
-          <div class="p-3 bg-amber-100 text-amber-600 rounded-xl">
+          <div class="p-3 bg-amber-50 text-amber-600 rounded-xl">
             <i data-lucide="stamp" class="w-6 h-6"></i>
           </div>
           <div>
@@ -402,7 +391,7 @@
           </div>
         </div>
         <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
-          <div class="p-3 bg-emerald-100 text-emerald-600 rounded-xl">
+          <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
             <i data-lucide="gift" class="w-6 h-6"></i>
           </div>
           <div>
@@ -411,7 +400,7 @@
           </div>
         </div>
         <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
-          <div class="p-3 bg-blue-100 text-blue-600 rounded-xl">
+          <div class="p-3 bg-blue-50 text-blue-600 rounded-xl">
             <i data-lucide="database" class="w-6 h-6"></i>
           </div>
           <div>
@@ -439,15 +428,15 @@
               <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                 <i data-lucide="search" class="w-4 h-4"></i>
               </span>
-              <input type="text" id="directory-search-input" oninput="filterCustomerDirectory()" placeholder="Search by name, mobile, or Customer ID..." class="w-full pl-10 pr-12 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 transition">
+              <input type="text" id="directory-search-input" oninput="filterCustomerDirectory()" placeholder="Search by name, mobile, or Customer ID..." class="w-full pl-10 pr-12 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 transition">
               <!-- Integrated inline scanner icon for modern UX -->
-              <button onclick="openQRScannerModal()" type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-red-600 transition" title="Scan QR Code">
+              <button onclick="openQRScannerModal()" type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-amber-500 transition" title="Scan QR Code">
                 <i data-lucide="camera" class="w-5 h-5 animate-pulse"></i>
               </button>
             </div>
-            <button onclick="openQRScannerModal()" class="px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-sm transition flex items-center justify-center gap-2 shadow-md shrink-0">
-              <i data-lucide="qr-code" class="w-4 h-4"></i>
-              <span>Scan Customer Card</span>
+            <button onclick="openQRScannerModal()" class="px-5 py-3 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold rounded-xl text-sm transition flex items-center justify-center gap-2 shadow-md shrink-0">
+              <i data-lucide="qr-code" class="w-4 h-4 text-slate-950"></i>
+              <span class="text-slate-950">Scan Customer Card</span>
             </button>
           </div>
 
@@ -502,11 +491,11 @@
 
         <form id="settings-form" onsubmit="handleSettingsUpdate(event)" class="mt-8 space-y-6">
           
-          <div class="p-5 bg-red-50 rounded-2xl border border-red-100 space-y-4">
-            <h3 class="text-xs font-black tracking-widest text-red-600 uppercase">DECOUPLED HANDSHAKE AGENT</h3>
+          <div class="p-5 bg-amber-50/50 rounded-2xl border border-amber-200/40 space-y-4">
+            <h3 class="text-xs font-black tracking-widest text-amber-600 uppercase">DECOUPLED HANDSHAKE AGENT</h3>
             <div>
               <label class="block text-xs font-bold text-slate-700 mb-2">Google Apps Script Published Web App URL</label>
-              <input type="url" id="settings-api-url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-red-500 focus:outline-none transition">
+              <input type="url" id="settings-api-url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-amber-500 focus:outline-none transition">
               <p class="text-[10px] text-slate-400 mt-1.5">Provide the Web App execution link from step 9 of deployment instructions. If empty, the system automatically runs the high-fidelity client-side local database simulator.</p>
             </div>
             <div class="flex items-center gap-2">
@@ -519,31 +508,31 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Business Brand Name</label>
-              <input type="text" id="settings-brand-name" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-red-500 transition">
+              <input type="text" id="settings-brand-name" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-amber-500 transition">
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Brand Logo URL</label>
-              <input type="url" id="settings-logo-url" placeholder="Leave blank for default" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-red-500 transition">
+              <input type="url" id="settings-logo-url" placeholder="Leave blank for default" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-amber-500 transition">
             </div>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Loyalty Reward Stamp Target</label>
-              <input type="number" id="settings-reward-target" min="2" max="20" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-red-500 transition">
+              <input type="number" id="settings-reward-target" min="2" max="20" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-amber-500 transition">
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Target Prize Name</label>
-              <input type="text" id="settings-reward-name" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-red-500 transition">
+              <input type="text" id="settings-reward-name" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-amber-500 transition">
             </div>
           </div>
 
           <div>
             <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Admin Terminal Access Password</label>
-            <input type="text" id="settings-admin-password" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-red-500 transition">
+            <input type="text" id="settings-admin-password" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-amber-500 transition">
           </div>
 
-          <button type="submit" class="w-full bg-brand-crimson hover:bg-brand-crimson-hover text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition">
+          <button type="submit" class="w-full bg-brand-gold hover:bg-brand-gold-hover text-slate-950 font-bold py-3.5 px-6 rounded-xl shadow-md transition">
             Save Engine Settings
           </button>
         </form>
@@ -569,18 +558,18 @@
           <span id="admin-terminal-url-display">Fetching Client URL...</span>
         </div>
 
-        <button onclick="copyTerminalURLToClipboard()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-6 rounded-xl shadow transition flex items-center justify-center gap-2">
+        <button onclick="copyTerminalURLToClipboard()" class="w-full bg-slate-950 hover:bg-slate-800 text-white font-bold py-3 px-6 rounded-xl shadow transition flex items-center justify-center gap-2">
           <i data-lucide="copy" class="w-4 h-4"></i> Copy Web Address Link
         </button>
       </div>
     </div>
 
     <!-- 9. MERCHANT QR CODE CAMERA SCANNER MODAL -->
-    <div id="merchant-qr-scanner-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div id="merchant-qr-scanner-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[99999] flex items-center justify-center p-4 hidden">
       <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-slate-100 p-6 animate__animated animate__zoomIn animate__fast">
         <div class="flex justify-between items-center mb-4">
           <div class="flex items-center gap-2">
-            <span class="p-1.5 bg-red-50 text-red-600 rounded-lg flex items-center justify-center">
+            <span class="p-1.5 bg-amber-50 text-amber-600 rounded-lg flex items-center justify-center">
               <i data-lucide="qr-code" class="w-5 h-5"></i>
             </span>
             <h3 class="text-lg font-bold text-slate-800">Scan Customer Card</h3>
@@ -597,7 +586,7 @@
           <div id="qr-reader"></div>
           <!-- Scanning state fallback placeholders -->
           <div id="scanner-searching-placeholder" class="absolute inset-0 flex flex-col items-center justify-center text-slate-400 gap-3 p-4 text-center bg-slate-950">
-            <i data-lucide="aperture" class="w-10 h-10 animate-spin text-red-500"></i>
+            <i data-lucide="aperture" class="w-10 h-10 animate-spin text-amber-500"></i>
             <span class="text-xs font-semibold tracking-wide">Requesting environment camera access...</span>
           </div>
         </div>
@@ -610,28 +599,13 @@
 
   </main>
 
-  <!-- PWA INSTALLATION BANNER -->
-  <div id="pwa-install-banner" class="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md bg-slate-900 text-white p-5 rounded-3xl shadow-2xl border border-slate-800 z-50 flex items-center justify-between gap-4 hidden animate__animated animate__slideInUp">
-    <div class="flex items-center gap-3">
-      <span class="p-2.5 bg-red-600 rounded-xl text-lg">📲</span>
-      <div>
-        <h4 class="font-bold text-sm">Add to Home Screen</h4>
-        <p class="text-xs text-slate-400">Install "Asli Masala" as a mobile App wrapper</p>
-      </div>
-    </div>
-    <div class="flex gap-2">
-      <button onclick="dismissPWAInstall()" class="text-slate-400 hover:text-white text-xs font-bold px-2 py-1">Dismiss</button>
-      <button onclick="triggerPWAInstall()" class="bg-brand-crimson hover:bg-brand-crimson-hover text-white text-xs font-bold px-3 py-1.5 rounded-xl transition">Install</button>
-    </div>
-  </div>
-
   <!-- FLOATING GLOBAL TOAST CONTAINER -->
   <div id="toast-container" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col gap-3 z-50 w-full max-w-sm px-4"></div>
 
   <!-- FOOTER BRAND MARK (Cleaned to show only copyright as requested) -->
   <footer class="bg-slate-900 text-slate-500 py-6 text-center text-xs border-t border-slate-800/80">
     <div class="max-w-6xl mx-auto px-4">
-      <p>&copy; 2026 Asli Masala Loyalty Program Engine. All Rights Reserved.</p>
+      <p class="text-slate-400 font-medium">&copy; 2026 Asli Masala Loyalty Program Engine. All Rights Reserved.</p>
     </div>
   </footer>
 
@@ -642,7 +616,6 @@
     let IS_OFFLINE_MODE = true;
     let currentUser = null;
     let systemState = null;
-    let deferredAppPrompt = null;
     let trendsChart = null;
     let html5QrScanner = null; // Instantiated QR Engine controller reference
 
@@ -735,10 +708,7 @@
       // 4. Kickstart database state load routine
       synchronizeEngineState();
 
-      // 5. Hook PWA installers
-      setupPWAListeners();
-
-      // 6. Deep Link checking: Check if query parameters contain customer filter searches
+      // 5. Deep Link checking: Check if query parameters contain customer filter searches
       const urlParams = new URLSearchParams(window.location.search);
       const searchCust = urlParams.get("searchCust");
       if (searchCust) {
@@ -793,7 +763,7 @@
         logoContainer.innerHTML = `<img src="${systemState.settings.logo_url}" alt="Custom Store Logo" class="w-32 h-32 object-contain rounded-3xl border-4 border-white shadow-xl animate__animated animate__zoomIn">`;
       } else {
         logoContainer.innerHTML = `
-          <div class="w-32 h-32 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center border-4 border-white shadow-xl animate__animated animate__pulse animate__infinite">
+          <div class="w-32 h-32 bg-gradient-to-br from-amber-500 to-amber-600 rounded-full flex items-center justify-center border-4 border-white shadow-xl animate__animated animate__pulse animate__infinite">
             <span class="text-6xl drop-shadow-md">🌶️</span>
           </div>
         `;
@@ -802,12 +772,6 @@
 
     // --- DECUPLED API AND DATABASE HANDSHAKE SYNC ---
     async function synchronizeEngineState() {
-      const badge = document.getElementById("connection-badge");
-      const badgeText = document.getElementById("badge-text");
-
-      badge.className = "px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all duration-300 bg-amber-50 text-amber-700 border border-amber-200";
-      badgeText.innerText = "Connecting...";
-
       if (!API_URL || API_URL.trim() === "") {
         // Fall back gracefully to high-fidelity client simulation database
         setupLocalSimulation();
@@ -823,9 +787,6 @@
         if (data && data.success) {
           systemState = data;
           IS_OFFLINE_MODE = false;
-          
-          badge.className = "px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all duration-300 bg-emerald-50 text-emerald-700 border border-emerald-200";
-          badgeText.innerText = "Live";
           showToast("Live Google Sheet Connection Established!", "success");
         } else {
           throw new Error(data.error || "Execution error reading payload.");
@@ -841,12 +802,6 @@
 
     function setupLocalSimulation() {
       IS_OFFLINE_MODE = true;
-      const badge = document.getElementById("connection-badge");
-      const badgeText = document.getElementById("badge-text");
-
-      badge.className = "px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all duration-300 bg-yellow-50 text-yellow-700 border border-yellow-200";
-      badgeText.innerText = "Offline Database Simulator";
-
       let db = localStorage.getItem(LOCAL_DB_KEY);
       if (!db) {
         localStorage.setItem(LOCAL_DB_KEY, JSON.stringify(DEFAULT_SIMULATOR_DB));
@@ -1096,25 +1051,26 @@
 
         for (let i = 1; i <= targetStamps; i++) {
           const cell = document.createElement("div");
+          // Multi-device responsive sizing that prevents squashing and text overlaps
           cell.className = "stamp-cell-animate aspect-square rounded-2xl flex flex-col items-center justify-center border-2 transition-all duration-300 relative overflow-hidden shadow-sm";
           
           if (i <= currentStamps) {
-            // Highly professional, rich stamp active design
-            cell.className += " bg-gradient-to-br from-red-600 to-red-800 border-amber-400 scale-95 shadow-md border-2";
+            // Highly professional, rich saffron and toasted gold wax-seal design
+            cell.className += " bg-gradient-to-br from-amber-500 to-amber-700 border-amber-300 scale-95 shadow-md border-2 hover:rotate-12";
             cell.innerHTML = `
-              <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-1">
-                <div class="bg-amber-400 text-slate-900 rounded-full p-1 shadow">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-slate-950 p-1">
+                <div class="bg-amber-100 text-slate-900 rounded-full p-1.5 shadow">
+                  <svg class="w-4 h-4 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                 </div>
-                <span class="text-[9px] font-extrabold tracking-widest text-amber-300 mt-1 uppercase">SPICED</span>
+                <span class="text-[9px] font-black tracking-widest text-white mt-1.5 uppercase">SPICED</span>
               </div>
             `;
           } else {
-            // Clean, minimal, warm-accented premium empty slot design
-            cell.className += " bg-gradient-to-br from-stone-50 to-slate-100 border-slate-300 hover:border-red-500/50 hover:bg-stone-100";
+            // Clean, minimal, copper debossed coin look
+            cell.className += " bg-gradient-to-br from-stone-50 to-slate-100 border-slate-200 hover:border-amber-500/50 hover:bg-stone-100";
             cell.innerHTML = `
               <span class="text-xl font-extrabold text-slate-400 font-mono">${i}</span>
-              <span class="text-[8px] text-slate-400 font-semibold tracking-wider mt-0.5 uppercase">STAMP</span>
+              <span class="text-[8px] text-slate-400 font-bold tracking-wider mt-0.5 uppercase">SLOT</span>
             `;
           }
           grid.appendChild(cell);
@@ -1149,7 +1105,7 @@
         text: codeValue,
         width: 220, 
         height: 220,
-        colorDark: "#111111",
+        colorDark: "#0f172a",
         colorLight: "#ffffff",
         correctLevel: QRCode.CorrectLevel.H
       });
@@ -1161,7 +1117,7 @@
         particleCount: 150,
         spread: 80,
         origin: { y: 0.6 },
-        colors: ["#D32F2F", "#111111", "#ffbf00", "#ff4500"]
+        colors: ["#D97706", "#111111", "#B45309", "#f5f4f0"]
       });
     }
 
@@ -1660,8 +1616,8 @@
           datasets: [{
             label: 'New Loyalty Registrations',
             data: chartData,
-            borderColor: '#D32F2F',
-            backgroundColor: 'rgba(211, 47, 47, 0.08)',
+            borderColor: '#D97706',
+            backgroundColor: 'rgba(217, 119, 6, 0.08)',
             fill: true,
             tension: 0.35,
             borderWidth: 3.5,
@@ -1777,175 +1733,6 @@
         showToast("Manual copying required for safety policies.", "warning");
       }
       document.body.removeChild(tempInput);
-    }
-
-    // --- PWA APPLICATION INSTALLATION AGENT ---
-    function setupPWAListeners() {
-      // Register standard service worker to comply with installability criteria
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./sw.js').then(reg => {
-            console.log('Service Worker registered successfully with scope:', reg.scope);
-          }).catch(err => {
-            console.log('Standard external sw.js not loaded. Falling back to platform guides.');
-          });
-        });
-      }
-
-      // 1. Detect if the app is already running inside an installed standalone PWA window
-      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-      
-      if (isStandalone) {
-        console.log("App running in standalone PWA window.");
-        const headerBtn = document.getElementById("header-install-btn");
-        if (headerBtn) headerBtn.classList.add("hidden");
-        return;
-      }
-
-      // 2. Render installation helper buttons
-      const headerBtn = document.getElementById("header-install-btn");
-      if (headerBtn) headerBtn.classList.remove("hidden");
-
-      // 3. Android/Chrome Native installation setup
-      window.addEventListener("beforeinstallprompt", (e) => {
-        e.preventDefault();
-        deferredAppPrompt = e;
-        
-        // Show native install options immediately
-        const banner = document.getElementById("pwa-install-banner");
-        if (banner && !sessionStorage.getItem("pwa_banner_dismissed")) {
-          banner.classList.remove("hidden");
-        }
-      });
-
-      // 4. Session cached fallback discovery countdown to show banner if not native
-      setTimeout(() => {
-        const banner = document.getElementById("pwa-install-banner");
-        if (banner && !sessionStorage.getItem("pwa_banner_dismissed")) {
-          banner.classList.remove("hidden");
-        }
-      }, 5000);
-    }
-
-    // Trigger installation
-    function triggerPWAInstall() {
-      if (deferredAppPrompt) {
-        deferredAppPrompt.prompt();
-        deferredAppPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === "accepted") {
-            showToast("Thank you for installing our reward program wrapper!", "success");
-          }
-          dismissPWAInstall();
-        });
-      } else {
-        dismissPWAInstall();
-        openSmartPWAInstallAssistant();
-      }
-    }
-
-    // Dismiss installation banner
-    function dismissPWAInstall() {
-      const banner = document.getElementById("pwa-install-banner");
-      if (banner) banner.classList.add("hidden");
-      sessionStorage.setItem("pwa_banner_dismissed", "true");
-    }
-
-    // Smart PWA Installer Assistant Walkthrough Modal triggers
-    function openSmartPWAInstallAssistant() {
-      // Detect iOS vs Android to present custom device guides
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-      
-      // Inject modal overlay dynamically
-      const modalId = "smart-pwa-install-modal";
-      let existingModal = document.getElementById(modalId);
-      if (existingModal) existingModal.remove();
-
-      const modal = document.createElement("div");
-      modal.id = modalId;
-      modal.className = "fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[99999] flex items-center justify-center p-4 animate__animated animate__fadeIn animate__faster";
-
-      let instructionsHTML = "";
-
-      if (isIOS) {
-        // High fidelity walkthrough for iOS Safari
-        instructionsHTML = `
-          <div class="space-y-4">
-            <div class="flex items-center gap-3 justify-center mb-6">
-              <span class="text-3xl">🍎</span>
-              <h3 class="text-xl font-bold text-slate-800">Install on Apple iOS</h3>
-            </div>
-            <p class="text-sm text-slate-500 leading-relaxed text-left">
-              Safari on iOS does not support one-tap native prompt dialogs. Follow these simple steps to add this app to your home screen:
-            </p>
-            <div class="space-y-3.5 pt-2">
-              <div class="flex items-center gap-3.5 bg-slate-50 p-3 rounded-2xl border border-slate-100 text-left">
-                <span class="w-8 h-8 rounded-full bg-red-50 text-red-600 font-extrabold flex items-center justify-center text-sm">1</span>
-                <span class="text-xs text-slate-600 font-medium flex items-center gap-1.5 flex-wrap">Tap Safari's <span class="bg-slate-200 px-1.5 py-1 rounded inline-flex items-center"><i data-lucide="share" class="w-4 h-4 text-slate-700"></i></span> <strong>Share</strong> button.</span>
-              </div>
-              <div class="flex items-center gap-3.5 bg-slate-50 p-3 rounded-2xl border border-slate-100 text-left">
-                <span class="w-8 h-8 rounded-full bg-red-50 text-red-600 font-extrabold flex items-center justify-center text-sm">2</span>
-                <span class="text-xs text-slate-600 font-medium flex items-center gap-1.5 flex-wrap">Scroll down and select <span class="bg-slate-200 px-1.5 py-1 rounded inline-flex items-center"><i data-lucide="plus-square" class="w-4 h-4 text-slate-700"></i></span> <strong>Add to Home Screen</strong>.</span>
-              </div>
-              <div class="flex items-center gap-3.5 bg-slate-50 p-3 rounded-2xl border border-slate-100 text-left">
-                <span class="w-8 h-8 rounded-full bg-red-50 text-red-600 font-extrabold flex items-center justify-center text-sm">3</span>
-                <span class="text-xs text-slate-600 font-medium">Confirm by tapping <strong>Add</strong> in the top right corner.</span>
-              </div>
-            </div>
-          </div>
-        `;
-      } else {
-        // High fidelity walkthrough for Android/Chrome/Desktop
-        instructionsHTML = `
-          <div class="space-y-4">
-            <div class="flex items-center gap-3 justify-center mb-6">
-              <span class="text-3xl">🤖</span>
-              <h3 class="text-xl font-bold text-slate-800">Install on Android / Chrome</h3>
-            </div>
-            <p class="text-sm text-slate-500 leading-relaxed text-left">
-              Install a lightweight standalone version of the app directly onto your home screen:
-            </p>
-            <div class="space-y-3.5 pt-2">
-              <div class="flex items-center gap-3.5 bg-slate-50 p-3 rounded-2xl border border-slate-100 text-left">
-                <span class="w-8 h-8 rounded-full bg-red-50 text-red-600 font-extrabold flex items-center justify-center text-sm">1</span>
-                <span class="text-xs text-slate-600 font-medium">Tap the browser's menu (three dots <span class="font-extrabold font-mono">⋮</span>).</span>
-              </div>
-              <div class="flex items-center gap-3.5 bg-slate-50 p-3 rounded-2xl border border-slate-100 text-left">
-                <span class="w-8 h-8 rounded-full bg-red-50 text-red-600 font-extrabold flex items-center justify-center text-sm">2</span>
-                <span class="text-xs text-slate-600 font-medium">Select <strong>"Install App"</strong> or <strong>"Add to Home Screen"</strong>.</span>
-              </div>
-              <div class="flex items-center gap-3.5 bg-slate-50 p-3 rounded-2xl border border-slate-100 text-left">
-                <span class="w-8 h-8 rounded-full bg-red-50 text-red-600 font-extrabold flex items-center justify-center text-sm">3</span>
-                <span class="text-xs text-slate-600 font-medium">Confirm the installer dialog prompts.</span>
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      modal.innerHTML = `
-        <div class="bg-white rounded-[2.5rem] shadow-2xl p-8 max-w-sm w-full text-center relative border border-slate-100 animate__animated animate__zoomIn animate__fast">
-          <button onclick="document.getElementById('${modalId}').remove()" class="absolute top-4 right-4 p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-          </button>
-          
-          <div class="flex justify-center mb-4">
-            <div class="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center shadow-inner">
-              <span class="text-4xl">🌶️</span>
-            </div>
-          </div>
-
-          ${instructionsHTML}
-
-          <button onclick="document.getElementById('${modalId}').remove()" class="w-full mt-6 bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 px-6 rounded-2xl transition">
-            Got It, Thanks!
-          </button>
-        </div>
-      `;
-
-      document.body.appendChild(modal);
-      if (window.lucide) {
-        lucide.createIcons();
-      }
     }
   </script>
 </body>
