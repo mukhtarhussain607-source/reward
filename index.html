@@ -137,12 +137,12 @@
     <div class="max-w-6xl mx-auto flex justify-between items-center">
       <div class="flex items-center space-x-3">
         <!-- Replaced sparkles icon with clean official logo in header -->
-        <div class="p-1 bg-amber-500 rounded-xl flex items-center justify-center shadow-md">
+        <div class="p-1 bg-slate-800 rounded-xl flex items-center justify-center shadow-md border border-slate-700">
           <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjk7Fazl5qegIaD-QoS5T8kRLfcy0uSi_zhGxN1wO6eCZRpDKziP3zOGAXNMFRZgETymFdKwI-i7bjOWcYW7l24zuTFFvQWATn44kD2WH9O9Cy4vCYEzjgNLNX0YJ9dPleHC9ZqDkzWfiatzpFknJuGqE69V8bpfDGmOScfKfMWo23FchjBuUCtl2CyohOt=s16000" alt="Asli Masala Header Logo" class="w-9 h-9 object-contain rounded-lg">
         </div>
         <div>
-          <h1 id="header-brand-name" class="font-extrabold text-xl tracking-wide uppercase text-amber-500">Asli Masala</h1>
-          <p class="text-[10px] text-amber-600 font-semibold tracking-wider">Aromatic Reward Passport</p>
+          <h1 id="header-brand-name" class="font-extrabold text-xl tracking-wide uppercase text-amber-550">Asli Masala</h1>
+          <p class="text-[10px] text-amber-500 font-semibold tracking-wider">Aromatic Reward Passport</p>
         </div>
       </div>
       <div class="flex items-center space-x-3">
@@ -267,10 +267,10 @@
     </section>
 
     <!-- 4. CUSTOMER DASHBOARD VIEW -->
-    <section id="view-customer" class="view hidden max-w-2xl mx-auto py-6">
+    <section id="view-customer" class="view hidden max-w-4xl mx-auto py-6 space-y-8">
       
       <!-- Greeting and Header Block -->
-      <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+      <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <span class="px-3 py-1 bg-amber-550/10 text-amber-700 text-xs font-extrabold rounded-full tracking-wide">CUSTOMER PASSPORT</span>
           <h2 class="text-2xl font-black text-slate-800 mt-2">Namaste, <span id="customer-display-name">Guest</span>!</h2>
@@ -287,8 +287,8 @@
         </div>
       </div>
 
-      <!-- Stamp Card Visualization Passport Box -->
-      <div class="bg-white rounded-[2rem] p-6 shadow-lg border border-slate-100 mb-6">
+      <!-- Stamp Card Passport Container -->
+      <div class="bg-white rounded-[2rem] p-6 shadow-lg border border-slate-100">
         <div class="flex justify-between items-center pb-4 border-b border-slate-100 mb-6">
           <div>
             <h3 class="font-extrabold text-lg text-slate-800">Your Stamp Passport</h3>
@@ -297,7 +297,7 @@
           <span id="card-progress-percentage" class="text-sm font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">0%</span>
         </div>
 
-        <!-- Highly Responsive dynamic grid preventing text squishing/overlaps across all breakpoints -->
+        <!-- Stamp Progress Grid (Highly Responsive) -->
         <div id="stamp-grid" class="grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-5 gap-3">
           <!-- Dynamically populated stamps cells -->
         </div>
@@ -312,6 +312,187 @@
                 Take this passport to store checkout to claim your <strong id="reward-target-claim-desc">500g Haldi Powder Free</strong>.
               </p>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTEGRATED AROMATIC SPICES SHOP SECTION -->
+      <div class="bg-white rounded-[2rem] p-6 md:p-8 shadow-lg border border-slate-100 space-y-6">
+        <div class="border-b border-slate-100 pb-4">
+          <div class="flex items-center gap-3">
+            <span class="p-2 bg-amber-50 text-amber-600 rounded-xl">
+              <i data-lucide="store" class="w-6 h-6"></i>
+            </span>
+            <div>
+              <h3 class="font-extrabold text-xl text-slate-800">Order Fresh Spices</h3>
+              <p class="text-xs text-slate-500 mt-0.5">₹500 spent = 1 Stamp. Built-in dynamic calculator & one-tap WhatsApp ordering.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Spices Catalog Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Product Card 1: Kashmiri Red Chilli Powder -->
+          <div class="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm space-y-4 hover:shadow-md transition duration-300">
+            <div class="h-44 rounded-xl overflow-hidden bg-slate-100 flex items-center justify-center relative border border-slate-100">
+              <img src="https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&q=80&w=600" onerror="this.src='https://blogger.googleusercontent.com/img/a/AVvXsEjk7Fazl5qegIaD-QoS5T8kRLfcy0uSi_zhGxN1wO6eCZRpDKziP3zOGAXNMFRZgETymFdKwI-i7bjOWcYW7l24zuTFFvQWATn44kD2WH9O9Cy4vCYEzjgNLNX0YJ9dPleHC9ZqDkzWfiatzpFknJuGqE69V8bpfDGmOScfKfMWo23FchjBuUCtl2CyohOt=s16000'" alt="Red Chilli Powder" class="w-full h-full object-cover">
+              <span class="absolute top-2.5 right-2.5 bg-amber-500 text-slate-950 font-bold text-[10px] px-2 py-1 rounded-lg uppercase tracking-wider">13% OFF</span>
+            </div>
+            <div class="text-center space-y-1">
+              <h4 class="font-extrabold text-lg text-slate-800">Red Chilli Powder</h4>
+              <p class="text-[11px] text-slate-400 italic">100% Natural | 100% Pure | Hand Cleaned | No Milawat.</p>
+            </div>
+            <div class="text-center">
+              <span class="text-xs text-slate-400 line-through" id="chilli-old-price">~~₹400/kg~~</span>
+              <span class="text-lg font-black text-amber-600 ml-1.5" id="chilli-price">₹350/kg</span>
+            </div>
+            <!-- Weight variants plate selector matching requested styling -->
+            <div class="flex flex-wrap items-center justify-center gap-1.5">
+              <button onclick="selectProductVariant('chilli', '1kg', 350, 400)" id="btn-chilli-1kg" class="variant-btn-chilli px-3 py-1.5 text-xs font-bold rounded-lg border bg-amber-500 text-slate-950 border-amber-500 transition duration-300">1kg</button>
+              <button onclick="selectProductVariant('chilli', '500g', 180, 210)" id="btn-chilli-500g" class="variant-btn-chilli px-3 py-1.5 text-xs font-bold rounded-lg border bg-slate-50 text-slate-700 border-slate-200 transition duration-300">500g</button>
+              <button onclick="selectProductVariant('chilli', '250g', 100, 115)" id="btn-chilli-250g" class="variant-btn-chilli px-3 py-1.5 text-xs font-bold rounded-lg border bg-slate-50 text-slate-700 border-slate-200 transition duration-300">250g</button>
+              <button onclick="selectProductVariant('chilli', '100g', 45, 52)" id="btn-chilli-100g" class="variant-btn-chilli px-3 py-1.5 text-xs font-bold rounded-lg border bg-slate-50 text-slate-700 border-slate-200 transition duration-300">100g</button>
+              <button onclick="selectProductVariant('chilli', '50g', 25, 30)" id="btn-chilli-50g" class="variant-btn-chilli px-3 py-1.5 text-xs font-bold rounded-lg border bg-slate-50 text-slate-700 border-slate-200 transition duration-300">50g</button>
+            </div>
+            <div class="pt-2 flex items-center justify-between gap-4">
+              <div class="flex items-center border border-slate-200 rounded-xl overflow-hidden shrink-0">
+                <button onclick="adjustShopQty('chilli', -1)" class="px-3.5 py-2 bg-slate-50 hover:bg-slate-100 text-slate-600 font-bold transition">-</button>
+                <span id="qty-chilli" class="px-4 font-extrabold text-sm text-slate-800">0</span>
+                <button onclick="adjustShopQty('chilli', 1)" class="px-3.5 py-2 bg-slate-50 hover:bg-slate-100 text-slate-600 font-bold transition">+</button>
+              </div>
+              <button onclick="addToShopCart('chilli')" class="flex-grow bg-brand-gold hover:bg-brand-gold-hover text-white font-bold py-2.5 px-4 rounded-xl text-xs transition duration-300 shadow">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Card 2: Turmeric Powder (Haldi) -->
+          <div class="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm space-y-4 hover:shadow-md transition duration-300">
+            <div class="h-44 rounded-xl overflow-hidden bg-slate-100 flex items-center justify-center relative border border-slate-100">
+              <img src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&q=80&w=600" onerror="this.src='https://blogger.googleusercontent.com/img/a/AVvXsEjk7Fazl5qegIaD-QoS5T8kRLfcy0uSi_zhGxN1wO6eCZRpDKziP3zOGAXNMFRZgETymFdKwI-i7bjOWcYW7l24zuTFFvQWATn44kD2WH9O9Cy4vCYEzjgNLNX0YJ9dPleHC9ZqDkzWfiatzpFknJuGqE69V8bpfDGmOScfKfMWo23FchjBuUCtl2CyohOt=s16000'" alt="Turmeric Powder" class="w-full h-full object-cover">
+              <span class="absolute top-2.5 right-2.5 bg-amber-500 text-slate-950 font-bold text-[10px] px-2 py-1 rounded-lg uppercase tracking-wider">15% OFF</span>
+            </div>
+            <div class="text-center space-y-1">
+              <h4 class="font-extrabold text-lg text-slate-800">Turmeric Powder</h4>
+              <p class="text-[11px] text-slate-400 italic">High Curcumin | Sun Dried | Hygienically Ground.</p>
+            </div>
+            <div class="text-center">
+              <span class="text-xs text-slate-400 line-through" id="turmeric-old-price">~~₹330/kg~~</span>
+              <span class="text-lg font-black text-amber-600 ml-1.5" id="turmeric-price">₹280/kg</span>
+            </div>
+            <!-- Weight variants plate selector -->
+            <div class="flex flex-wrap items-center justify-center gap-1.5">
+              <button onclick="selectProductVariant('turmeric', '1kg', 280, 330)" id="btn-turmeric-1kg" class="variant-btn-turmeric px-3 py-1.5 text-xs font-bold rounded-lg border bg-amber-500 text-slate-950 border-amber-500 transition duration-300">1kg</button>
+              <button onclick="selectProductVariant('turmeric', '500g', 150, 180)" id="btn-turmeric-500g" class="variant-btn-turmeric px-3 py-1.5 text-xs font-bold rounded-lg border bg-slate-50 text-slate-700 border-slate-200 transition duration-300">500g</button>
+              <button onclick="selectProductVariant('turmeric', '250g', 80, 95)" id="btn-turmeric-250g" class="variant-btn-turmeric px-3 py-1.5 text-xs font-bold rounded-lg border bg-slate-50 text-slate-700 border-slate-200 transition duration-300">250g</button>
+              <button onclick="selectProductVariant('turmeric', '100g', 35, 42)" id="btn-turmeric-100g" class="variant-btn-turmeric px-3 py-1.5 text-xs font-bold rounded-lg border bg-slate-50 text-slate-700 border-slate-200 transition duration-300">100g</button>
+              <button onclick="selectProductVariant('turmeric', '50g', 20, 25)" id="btn-turmeric-50g" class="variant-btn-turmeric px-3 py-1.5 text-xs font-bold rounded-lg border bg-slate-50 text-slate-700 border-slate-200 transition duration-300">50g</button>
+            </div>
+            <div class="pt-2 flex items-center justify-between gap-4">
+              <div class="flex items-center border border-slate-200 rounded-xl overflow-hidden shrink-0">
+                <button onclick="adjustShopQty('turmeric', -1)" class="px-3.5 py-2 bg-slate-50 hover:bg-slate-100 text-slate-600 font-bold transition">-</button>
+                <span id="qty-turmeric" class="px-4 font-extrabold text-sm text-slate-800">0</span>
+                <button onclick="adjustShopQty('turmeric', 1)" class="px-3.5 py-2 bg-slate-50 hover:bg-slate-100 text-slate-600 font-bold transition">+</button>
+              </div>
+              <button onclick="addToShopCart('turmeric')" class="flex-grow bg-brand-gold hover:bg-brand-gold-hover text-white font-bold py-2.5 px-4 rounded-xl text-xs transition duration-300 shadow">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Card 3: Coriander Powder (Dhania) -->
+          <div class="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm space-y-4 hover:shadow-md transition duration-300">
+            <div class="h-44 rounded-xl overflow-hidden bg-slate-100 flex items-center justify-center relative border border-slate-100">
+              <img src="https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&q=80&w=600" onerror="this.src='https://blogger.googleusercontent.com/img/a/AVvXsEjk7Fazl5qegIaD-QoS5T8kRLfcy0uSi_zhGxN1wO6eCZRpDKziP3zOGAXNMFRZgETymFdKwI-i7bjOWcYW7l24zuTFFvQWATn44kD2WH9O9Cy4vCYEzjgNLNX0YJ9dPleHC9ZqDkzWfiatzpFknJuGqE69V8bpfDGmOScfKfMWo23FchjBuUCtl2CyohOt=s16000'" alt="Coriander Powder" class="w-full h-full object-cover">
+              <span class="absolute top-2.5 right-2.5 bg-amber-500 text-slate-950 font-bold text-[10px] px-2 py-1 rounded-lg uppercase tracking-wider">12% OFF</span>
+            </div>
+            <div class="text-center space-y-1">
+              <h4 class="font-extrabold text-lg text-slate-800">Coriander Powder</h4>
+              <p class="text-[11px] text-slate-400 italic">Highly Aromatic | Double-Filtered | Premium Seeds.</p>
+            </div>
+            <div class="text-center">
+              <span class="text-xs text-slate-400 line-through" id="coriander-old-price">~~₹280/kg~~</span>
+              <span class="text-lg font-black text-amber-600 ml-1.5" id="coriander-price">₹240/kg</span>
+            </div>
+            <!-- Weight variants plate selector -->
+            <div class="flex flex-wrap items-center justify-center gap-1.5">
+              <button onclick="selectProductVariant('coriander', '1kg', 240, 280)" id="btn-coriander-1kg" class="variant-btn-coriander px-3 py-1.5 text-xs font-bold rounded-lg border bg-amber-500 text-slate-950 border-amber-500 transition duration-300">1kg</button>
+              <button onclick="selectProductVariant('coriander', '500g', 130, 150)" id="btn-coriander-500g" class="variant-btn-coriander px-3 py-1.5 text-xs font-bold rounded-lg border bg-slate-50 text-slate-700 border-slate-200 transition duration-300">500g</button>
+              <button onclick="selectProductVariant('coriander', '250g', 70, 80)" id="btn-coriander-250g" class="variant-btn-coriander px-3 py-1.5 text-xs font-bold rounded-lg border bg-slate-50 text-slate-700 border-slate-200 transition duration-300">250g</button>
+              <button onclick="selectProductVariant('coriander', '100g', 30, 35)" id="btn-coriander-100g" class="variant-btn-coriander px-3 py-1.5 text-xs font-bold rounded-lg border bg-slate-50 text-slate-700 border-slate-200 transition duration-300">100g</button>
+              <button onclick="selectProductVariant('coriander', '50g', 18, 22)" id="btn-coriander-50g" class="variant-btn-coriander px-3 py-1.5 text-xs font-bold rounded-lg border bg-slate-50 text-slate-700 border-slate-200 transition duration-300">50g</button>
+            </div>
+            <div class="pt-2 flex items-center justify-between gap-4">
+              <div class="flex items-center border border-slate-200 rounded-xl overflow-hidden shrink-0">
+                <button onclick="adjustShopQty('coriander', -1)" class="px-3.5 py-2 bg-slate-50 hover:bg-slate-100 text-slate-600 font-bold transition">-</button>
+                <span id="qty-coriander" class="px-4 font-extrabold text-sm text-slate-800">0</span>
+                <button onclick="adjustShopQty('coriander', 1)" class="px-3.5 py-2 bg-slate-50 hover:bg-slate-100 text-slate-600 font-bold transition">+</button>
+              </div>
+              <button onclick="addToShopCart('coriander')" class="flex-grow bg-brand-gold hover:bg-brand-gold-hover text-white font-bold py-2.5 px-4 rounded-xl text-xs transition duration-300 shadow">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Card 4: Premium Cumin Powder (Jeera) -->
+          <div class="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm space-y-4 hover:shadow-md transition duration-300">
+            <div class="h-44 rounded-xl overflow-hidden bg-slate-100 flex items-center justify-center relative border border-slate-100">
+              <img src="https://images.unsplash.com/photo-1608797178974-15b35a61d121?auto=format&fit=crop&q=80&w=600" onerror="this.src='https://blogger.googleusercontent.com/img/a/AVvXsEjk7Fazl5qegIaD-QoS5T8kRLfcy0uSi_zhGxN1wO6eCZRpDKziP3zOGAXNMFRZgETymFdKwI-i7bjOWcYW7l24zuTFFvQWATn44kD2WH9O9Cy4vCYEzjgNLNX0YJ9dPleHC9ZqDkzWfiatzpFknJuGqE69V8bpfDGmOScfKfMWo23FchjBuUCtl2CyohOt=s16000'" alt="Cumin Powder" class="w-full h-full object-cover">
+              <span class="absolute top-2.5 right-2.5 bg-amber-500 text-slate-950 font-bold text-[10px] px-2 py-1 rounded-lg uppercase tracking-wider">10% OFF</span>
+            </div>
+            <div class="text-center space-y-1">
+              <h4 class="font-extrabold text-lg text-slate-800">Cumin Powder (Jeera)</h4>
+              <p class="text-[11px] text-slate-400 italic">Freshly Roasted | Strong Flavor | Sourced from Rajasthan.</p>
+            </div>
+            <div class="text-center">
+              <span class="text-xs text-slate-400 line-through" id="cumin-old-price">~~₹550/kg~~</span>
+              <span class="text-lg font-black text-amber-600 ml-1.5" id="cumin-price">₹490/kg</span>
+            </div>
+            <!-- Weight variants plate selector -->
+            <div class="flex flex-wrap items-center justify-center gap-1.5">
+              <button onclick="selectProductVariant('cumin', '1kg', 490, 550)" id="btn-cumin-1kg" class="variant-btn-cumin px-3 py-1.5 text-xs font-bold rounded-lg border bg-amber-500 text-slate-950 border-amber-500 transition duration-300">1kg</button>
+              <button onclick="selectProductVariant('cumin', '500g', 260, 290)" id="btn-cumin-500g" class="variant-btn-cumin px-3 py-1.5 text-xs font-bold rounded-lg border bg-slate-50 text-slate-700 border-slate-200 transition duration-300">500g</button>
+              <button onclick="selectProductVariant('cumin', '250g', 140, 160)" id="btn-cumin-250g" class="variant-btn-cumin px-3 py-1.5 text-xs font-bold rounded-lg border bg-slate-50 text-slate-700 border-slate-200 transition duration-300">250g</button>
+              <button onclick="selectProductVariant('cumin', '100g', 60, 68)" id="btn-cumin-100g" class="variant-btn-cumin px-3 py-1.5 text-xs font-bold rounded-lg border bg-slate-50 text-slate-700 border-slate-200 transition duration-300">100g</button>
+              <button onclick="selectProductVariant('cumin', '50g', 35, 40)" id="btn-cumin-50g" class="variant-btn-cumin px-3 py-1.5 text-xs font-bold rounded-lg border bg-slate-50 text-slate-700 border-slate-200 transition duration-300">50g</button>
+            </div>
+            <div class="pt-2 flex items-center justify-between gap-4">
+              <div class="flex items-center border border-slate-200 rounded-xl overflow-hidden shrink-0">
+                <button onclick="adjustShopQty('cumin', -1)" class="px-3.5 py-2 bg-slate-50 hover:bg-slate-100 text-slate-600 font-bold transition">-</button>
+                <span id="qty-cumin" class="px-4 font-extrabold text-sm text-slate-800">0</span>
+                <button onclick="adjustShopQty('cumin', 1)" class="px-3.5 py-2 bg-slate-50 hover:bg-slate-100 text-slate-600 font-bold transition">+</button>
+              </div>
+              <button onclick="addToShopCart('cumin')" class="flex-grow bg-brand-gold hover:bg-brand-gold-hover text-white font-bold py-2.5 px-4 rounded-xl text-xs transition duration-300 shadow">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sticky Bottom Shopping Cart Overlay Summary -->
+        <div id="shop-cart-panel" class="p-6 bg-slate-900 rounded-2xl border border-slate-800 text-white flex flex-col md:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5">
+            <span class="p-3 bg-amber-500 rounded-xl text-slate-950 font-bold text-xl relative">
+              <i data-lucide="shopping-basket" class="w-6 h-6"></i>
+              <span id="cart-item-count" class="absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-black animate-bounce">0</span>
+            </span>
+            <div>
+              <div class="text-sm font-extrabold flex items-center gap-2">
+                <span>Order Total:</span>
+                <span id="cart-total-bill" class="text-amber-400 text-lg font-black">₹0</span>
+              </div>
+              <p id="cart-stamp-estimate" class="text-xs text-slate-400 mt-0.5">Add items to estimate your loyalty stamps.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 w-full md:w-auto">
+            <button onclick="clearShopCart()" class="px-4 py-3 bg-slate-800 hover:bg-slate-700 font-bold text-xs text-slate-300 rounded-xl transition">
+              Reset Cart
+            </button>
+            <button onclick="checkoutToWhatsApp()" class="flex-grow md:flex-grow-0 px-6 py-3 bg-gradient-to-r from-emerald-600 to-green-500 hover:from-emerald-700 hover:to-green-600 font-extrabold text-sm text-white rounded-xl shadow-lg transition duration-300 flex items-center justify-center gap-2">
+              <i data-lucide="send" class="w-4 h-4"></i> Send Order via WhatsApp
+            </button>
           </div>
         </div>
       </div>
@@ -625,6 +806,65 @@
     let systemState = null;
     let trendsChart = null;
     let html5QrScanner = null; // Instantiated QR Engine controller reference
+    
+    // --- GLOBAL ORDER CART STATE ---
+    let orderCart = {};
+    
+    // Detailed Product rates catalog mapped to weight plate selectors
+    const PRODUCTS_CATALOG = {
+      chilli: {
+        name: "Red Chilli Powder",
+        subTags: "100% Natural | 100% Pure | Hand Cleaned | No Milawat.",
+        image: "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&q=80&w=600",
+        activeVariant: "1kg",
+        variants: {
+          "1kg": { price: 350, oldPrice: 400 },
+          "500g": { price: 180, oldPrice: 210 },
+          "250g": { price: 100, oldPrice: 115 },
+          "100g": { price: 45, oldPrice: 52 },
+          "50g": { price: 25, oldPrice: 30 }
+        }
+      },
+      turmeric: {
+        name: "Turmeric Powder (Haldi)",
+        subTags: "High Curcumin | Sun Dried | Hygienically Ground.",
+        image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&q=80&w=600",
+        activeVariant: "1kg",
+        variants: {
+          "1kg": { price: 280, oldPrice: 330 },
+          "500g": { price: 150, oldPrice: 180 },
+          "250g": { price: 80, oldPrice: 95 },
+          "100g": { price: 35, oldPrice: 42 },
+          "50g": { price: 20, oldPrice: 25 }
+        }
+      },
+      coriander: {
+        name: "Coriander Powder",
+        subTags: "Highly Aromatic | Double-Filtered | Premium Seeds.",
+        image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&q=80&w=600",
+        activeVariant: "1kg",
+        variants: {
+          "1kg": { price: 240, oldPrice: 280 },
+          "500g": { price: 130, oldPrice: 150 },
+          "250g": { price: 70, oldPrice: 80 },
+          "100g": { price: 30, oldPrice: 35 },
+          "50g": { price: 18, oldPrice: 22 }
+        }
+      },
+      cumin: {
+        name: "Cumin Powder (Jeera)",
+        subTags: "Freshly Roasted | Strong Flavor | Sourced from Rajasthan.",
+        image: "https://images.unsplash.com/photo-1608797178974-15b35a61d121?auto=format&fit=crop&q=80&w=600",
+        activeVariant: "1kg",
+        variants: {
+          "1kg": { price: 490, oldPrice: 550 },
+          "500g": { price: 260, oldPrice: 290 },
+          "250g": { price: 140, oldPrice: 160 },
+          "100g": { price: 60, oldPrice: 68 },
+          "50g": { price: 35, oldPrice: 40 }
+        }
+      }
+    };
 
     // --- TOASTER ENGINE INTERFACES (ALERT BYPASS SHIELDS) ---
     function showToast(message, type = "info") {
@@ -769,11 +1009,7 @@
       if (!logoContainer) return;
       
       // Official Google Blogger-hosted brand logo asset
-      const defaultLogoUrl = "https://blogger.googleusercontent.com/img/a/AVvXsEjk7Fazl5qegIaD-QoS5T8kRLfcy0uSi_zhGxN1wO6eCZRpDKziP3zOGAXNMFRZgETymFdKwI-i7bjOWcYW7l24zuTFFvQWATn44kD2WH9O9Cy4vCYEzjgNLNX0YJ9dPleHC9ZqDkzWfiatzpFknJuGqE69V8bpfDGmOScfKfMWo23FchjBuUCtl2CyohOt=s16000";
-      const logoUrl = (systemState && systemState.settings && systemState.settings.logo_url && systemState.settings.logo_url.trim() !== "") 
-        ? systemState.settings.logo_url 
-        : defaultLogoUrl;
-      
+      const logoUrl = "https://blogger.googleusercontent.com/img/a/AVvXsEjk7Fazl5qegIaD-QoS5T8kRLfcy0uSi_zhGxN1wO6eCZRpDKziP3zOGAXNMFRZgETymFdKwI-i7bjOWcYW7l24zuTFFvQWATn44kD2WH9O9Cy4vCYEzjgNLNX0YJ9dPleHC9ZqDkzWfiatzpFknJuGqE69V8bpfDGmOScfKfMWo23FchjBuUCtl2CyohOt=s16000";
       logoContainer.innerHTML = `<img src="${logoUrl}" alt="Asli Masala Logo" class="w-32 h-32 object-contain rounded-3xl border-4 border-white shadow-xl animate__animated animate__zoomIn">`;
     }
 
@@ -1096,6 +1332,7 @@
       }
 
       generateClientQR();
+      updateCartSummaryUI(); // Safely reset cart counter values
       lucide.createIcons();
     }
 
@@ -1126,6 +1363,162 @@
         origin: { y: 0.6 },
         colors: ["#D97706", "#111111", "#B45309", "#f5f4f0"]
       });
+    }
+
+    // --- INTEGRATED CULINARY ORDERING SHOP LOGIC ---
+    function selectProductVariant(productId, variantName, price, oldPrice) {
+      if (!PRODUCTS_CATALOG[productId]) return;
+      
+      // Update catalog memory state
+      PRODUCTS_CATALOG[productId].activeVariant = variantName;
+      
+      // Render text configurations
+      const oldPriceEl = document.getElementById(`${productId}-old-price`);
+      const activePriceEl = document.getElementById(`${productId}-price`);
+      if (oldPriceEl) oldPriceEl.innerText = `~~₹${oldPrice}/${variantName}~~`;
+      if (activePriceEl) activePriceEl.innerText = `₹${price}/${variantName}`;
+      
+      // Toggle button visual weights
+      const buttons = document.getElementsByClassName(`variant-btn-${productId}`);
+      for (let btn of buttons) {
+        btn.className = btn.className.replace("bg-amber-500 text-slate-950 border-amber-500", "bg-slate-50 text-slate-700 border-slate-200");
+      }
+      
+      const activeBtn = document.getElementById(`btn-${productId}-${variantName}`);
+      if (activeBtn) {
+        activeBtn.className = activeBtn.className.replace("bg-slate-50 text-slate-700 border-slate-200", "bg-amber-500 text-slate-950 border-amber-500");
+      }
+    }
+
+    function adjustShopQty(productId, delta) {
+      const qtyEl = document.getElementById(`qty-${productId}`);
+      if (!qtyEl) return;
+      
+      let currentQty = parseInt(qtyEl.innerText) || 0;
+      let nextQty = Math.max(0, currentQty + delta);
+      qtyEl.innerText = nextQty;
+    }
+
+    function addToShopCart(productId) {
+      const qtyEl = document.getElementById(`qty-${productId}`);
+      if (!qtyEl) return;
+      
+      const quantityToAdd = parseInt(qtyEl.innerText) || 0;
+      if (quantityToAdd <= 0) {
+        showToast("Please increase item quantity before adding to cart.", "warning");
+        return;
+      }
+      
+      const pData = PRODUCTS_CATALOG[productId];
+      const activeVariant = pData.activeVariant;
+      const vDetails = pData.variants[activeVariant];
+      
+      const cartKey = `${productId}_${activeVariant}`;
+      
+      if (!orderCart[cartKey]) {
+        orderCart[cartKey] = {
+          productId: productId,
+          name: pData.name,
+          variant: activeVariant,
+          pricePerUnit: vDetails.price,
+          quantity: 0
+        };
+      }
+      
+      orderCart[cartKey].quantity += quantityToAdd;
+      qtyEl.innerText = "0"; // Reset counter input
+      
+      showToast(`Added ${quantityToAdd}x ${pData.name} (${activeVariant}) to cart!`, "success");
+      updateCartSummaryUI();
+    }
+
+    function updateCartSummaryUI() {
+      const summaryPanel = document.getElementById("shop-cart-panel");
+      const cartCounter = document.getElementById("cart-item-count");
+      const cartBill = document.getElementById("cart-total-bill");
+      const cartEstimate = document.getElementById("cart-stamp-estimate");
+      
+      let totalUnits = 0;
+      let totalBill = 0;
+      
+      for (let key in orderCart) {
+        const item = orderCart[key];
+        totalUnits += item.quantity;
+        totalBill += (item.pricePerUnit * item.quantity);
+      }
+      
+      if (cartCounter) cartCounter.innerText = totalUnits;
+      if (cartBill) cartBill.innerText = `₹${totalBill}`;
+      
+      if (cartEstimate) {
+        if (totalBill <= 0) {
+          cartEstimate.innerText = "Add items to estimate your loyalty stamps.";
+        } else {
+          // ₹500 purchase earns 1 stamp
+          const estimatedStamps = Math.floor(totalBill / 500);
+          if (estimatedStamps > 0) {
+            cartEstimate.innerHTML = `<span class="text-amber-400 font-extrabold">⭐ This order earns you ${estimatedStamps} Loyalty Stamps!</span>`;
+          } else {
+            const gapToStamp = 500 - totalBill;
+            cartEstimate.innerText = `Add ₹${gapToStamp} more to earn your first loyalty stamp!`;
+          }
+        }
+      }
+    }
+
+    function clearShopCart() {
+      orderCart = {};
+      const productIds = ['chilli', 'turmeric', 'coriander', 'cumin'];
+      productIds.forEach(id => {
+        const qtyEl = document.getElementById(`qty-${id}`);
+        if (qtyEl) qtyEl.innerText = "0";
+      });
+      
+      showToast("Order shopping cart cleared.", "info");
+      updateCartSummaryUI();
+    }
+
+    function checkoutToWhatsApp() {
+      let totalBill = 0;
+      let messageItems = [];
+      
+      for (let key in orderCart) {
+        const item = orderCart[key];
+        const cost = item.pricePerUnit * item.quantity;
+        totalBill += cost;
+        messageItems.push(`- ${item.name} (${item.variant}) x${item.quantity} - ₹${cost}`);
+      }
+      
+      if (messageItems.length === 0) {
+        showToast("Your shopping cart is empty. Please add items first.", "warning");
+        return;
+      }
+      
+      const stampCount = Math.floor(totalBill / 500);
+      const customerName = currentUser ? currentUser.name : "Guest";
+      const customerId = currentUser ? currentUser.customer_id : "Unregistered";
+      const customerPh = currentUser ? currentUser.mobile : "";
+      
+      // Beautifully formatted WhatsApp message blocks
+      const msg = `Namaste Asli Masala, I would like to place an order!
+
+Customer Details:
+*Name*: ${customerName}
+*ID*: ${customerId}
+*Phone*: ${customerPh}
+
+Order Items:
+${messageItems.join("\n")}
+
+*Grand Total*: ₹${totalBill}
+*Estimated Stamps Earned*: ${stampCount} Stamp(s) (At ₹500/stamp)
+
+Please verify my checkout total and share UPI payment details! Thank you.`;
+
+      // Redirecting straight to the WhatsApp Business endpoint safely
+      const waUrl = `https://wa.me/919954666040?text=${encodeURIComponent(msg)}`;
+      window.open(waUrl, "_blank");
+      showToast("Order dispatched! Redirecting to WhatsApp checkout...", "success");
     }
 
     // --- ADMINISTRATIVE SUITE LOGIC ---
