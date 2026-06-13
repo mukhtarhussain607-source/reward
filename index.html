@@ -69,9 +69,58 @@
     #qr-reader__dashboard {
       display: none !important; /* Hide standard plain text configuration links in viewfinder */
     }
+
+    /* Keyframes for sliding progress bar inside premium loader */
+    @keyframes loading-progress {
+      0% { transform: scaleX(0); }
+      50% { transform: scaleX(0.7) translateX(30%); }
+      100% { transform: scaleX(0) translateX(100%); }
+    }
+    .animate-loading-bar {
+      animation: loading-progress 2.2s ease-in-out infinite;
+    }
   </style>
 </head>
 <body class="text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- BRAND MASALA SYSTEM LOADING SCREEN OVERLAY -->
+  <div id="loading-overlay" class="fixed inset-0 bg-slate-950 z-[9999] flex flex-col items-center justify-center transition-all duration-700 ease-in-out">
+    <div class="relative flex flex-col items-center justify-center p-8 text-center max-w-sm">
+      <!-- Glowing brand background aura -->
+      <div class="absolute w-72 h-72 bg-red-600/10 rounded-full blur-3xl animate-pulse"></div>
+      
+      <!-- Spice Grinding / Spinning Masala Animation -->
+      <div class="relative mb-6 flex items-center justify-center">
+        <!-- Golden outer spice orbit ring -->
+        <div class="w-28 h-24 rounded-full border-4 border-dashed border-amber-500/30 animate-spin" style="animation-duration: 10s;"></div>
+        <!-- Sparkling spice particles -->
+        <div class="absolute top-1 left-4 w-3 h-3 bg-red-500 rounded-full animate-ping"></div>
+        <div class="absolute bottom-1 right-4 w-2.5 h-2.5 bg-amber-400 rounded-full animate-ping" style="animation-delay: 0.8s;"></div>
+        <div class="absolute top-1/2 right-1 w-2 h-2 bg-emerald-500 rounded-full animate-ping" style="animation-delay: 1.5s;"></div>
+        
+        <!-- Bouncing Chili central asset icon -->
+        <div class="absolute inset-0 flex items-center justify-center">
+          <span class="text-6xl animate-bounce block select-none" style="animation-duration: 1.5s;">🌶️</span>
+        </div>
+      </div>
+      
+      <!-- Brand Text & Slogans -->
+      <h3 class="text-white text-2xl font-black tracking-widest uppercase mb-1">Asli Masala</h3>
+      <p class="text-slate-400 text-xs tracking-wider uppercase font-semibold mb-4">Loyalty Engine</p>
+      
+      <!-- Dynamic Rotating Culinary Slogans -->
+      <div class="h-6 overflow-hidden mb-5">
+        <p id="loading-slogan" class="text-red-500 font-extrabold text-xs uppercase tracking-widest animate__animated animate__fadeInUp">
+          Blending Fresh Spices...
+        </p>
+      </div>
+      
+      <!-- Infinite custom progress bar container -->
+      <div class="w-48 bg-slate-800 h-1.5 rounded-full overflow-hidden">
+        <div class="bg-gradient-to-r from-red-600 to-amber-500 h-full w-full rounded-full origin-left animate-loading-bar"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- TOP HEADER BANNER -->
   <header class="bg-slate-900 text-white py-4 px-6 shadow-md border-b border-slate-800">
@@ -217,7 +266,7 @@
       <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
         <div>
           <span class="px-3 py-1 bg-red-50 text-red-600 text-xs font-extrabold rounded-full tracking-wide">CUSTOMER PASSPORT</span>
-          <h2 class="text-2xl font-black text-slate-800 mt-2">Welcome, <span id="customer-display-name">Guest</span>!</h2>
+          <h2 class="text-2xl font-black text-slate-800 mt-2">Namaste, <span id="customer-display-name">Guest</span>!</h2>
           <p class="text-xs text-slate-400 mt-0.5">ID: <span id="customer-display-id" class="font-mono">CUST-000000</span> | Registered: <span id="customer-join-date">Loading...</span></p>
         </div>
         <div class="flex items-center gap-3">
@@ -659,23 +708,26 @@
 
     // --- LIFE CYCLE INITIALIZATION ---
     window.onload = function() {
-      // 1. Retrieve saved API Script URL from LocalStorage if it exists
+      // 1. Setup automatic slogan cycling during database sync
+      initializeLoadingSlogans();
+
+      // 2. Retrieve saved API Script URL from LocalStorage if it exists
       const savedUrl = localStorage.getItem("asli_masala_api_url");
       if (savedUrl && savedUrl.trim() !== "") {
         API_URL = savedUrl;
       }
 
-      // 2. Initialize graphics and navigation elements
+      // 3. Initialize graphics and navigation elements
       lucide.createIcons();
       initializeThemeStyles();
       
-      // 3. Kickstart database state load routine
+      // 4. Kickstart database state load routine
       synchronizeEngineState();
 
-      // 4. Hook PWA installers
+      // 5. Hook PWA installers
       setupPWAListeners();
 
-      // 5. Deep Link checking: Check if query parameters contain customer filter searches
+      // 6. Deep Link checking: Check if query parameters contain customer filter searches
       const urlParams = new URLSearchParams(window.location.search);
       const searchCust = urlParams.get("searchCust");
       if (searchCust) {
@@ -683,6 +735,43 @@
         showToast(`Deep-link filter cached for user: ${searchCust}`, "info");
       }
     };
+
+    // Dynamic slogan generator to match Masala / Spices Brand aesthetic
+    function initializeLoadingSlogans() {
+      const slogans = [
+        "Blending Fresh Spices...",
+        "Grinding Red Chilis...",
+        "Roasting Star Anise...",
+        "Sifting Turmeric Gold...",
+        "Grinding Fresh Rewards..."
+      ];
+      let sloganIndex = 0;
+      const sloganEl = document.getElementById("loading-slogan");
+      if (!sloganEl) return;
+      
+      setInterval(() => {
+        sloganIndex = (sloganIndex + 1) % slogans.length;
+        sloganEl.classList.remove("animate__fadeInUp");
+        sloganEl.classList.add("animate__fadeOutDown");
+        
+        setTimeout(() => {
+          sloganEl.innerText = slogans[sloganIndex];
+          sloganEl.classList.remove("animate__fadeOutDown");
+          sloganEl.classList.add("animate__fadeInUp");
+        }, 400);
+      }, 2000);
+    }
+
+    // Dismisses loading screen with premium cross-fade transition
+    function dismissLoadingOverlay() {
+      const loader = document.getElementById("loading-overlay");
+      if (loader) {
+        loader.classList.add("opacity-0", "pointer-events-none");
+        setTimeout(() => {
+          loader.remove();
+        }, 700);
+      }
+    }
 
     function initializeThemeStyles() {
       const logoContainer = document.getElementById("landing-logo-container");
@@ -711,6 +800,7 @@
       if (!API_URL || API_URL.trim() === "") {
         // Fall back gracefully to high-fidelity client simulation database
         setupLocalSimulation();
+        dismissLoadingOverlay();
         return;
       }
 
@@ -735,6 +825,7 @@
       }
 
       renderAppViewsByState();
+      dismissLoadingOverlay();
     }
 
     function setupLocalSimulation() {
