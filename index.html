@@ -11,8 +11,8 @@
   <meta name="apple-mobile-web-app-title" content="Asli Masala">
   <link class="pwa-icon" rel="apple-touch-icon" href="https://img.icons8.com/emoji/192/chili-pepper.png">
 
-  <!-- JSON Data-URI Web Manifest integration for PWA recognition -->
-  <link rel="manifest" href='data:application/manifest+json,{"name":"Asli Masala Rewards","short_name":"Asli Masala","start_url":".","display":"standalone","background_color":"#0f172a","theme_color":"#D32F2F","icons":[{"src":"https://img.icons8.com/emoji/192/chili-pepper.png","sizes":"192x192","type":"image/png"}]}'>
+  <!-- Link to the physical, secure Web Manifest file required for PWA installation -->
+  <link rel="manifest" href="manifest.json">
 
   <!-- CSS Framework Tailwind, Animate.css, Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -1446,6 +1446,7 @@
       });
     }
 
+    // Handle scanned QR codes
     function handleScannedCustomer(scannedText) {
       if (!scannedText) return;
       let targetId = "";
