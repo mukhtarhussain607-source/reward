@@ -5,11 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Asli Masala Rewards</title>
   
-  <!-- Apple iOS Mobile Web App Web-Capability Headers -->
+  <!-- Favicon and Apple iOS Mobile Web App Web-Capability Headers -->
+  <link rel="icon" type="image/png" href="https://blogger.googleusercontent.com/img/a/AVvXsEjk7Fazl5qegIaD-QoS5T8kRLfcy0uSi_zhGxN1wO6eCZRpDKziP3zOGAXNMFRZgETymFdKwI-i7bjOWcYW7l24zuTFFvQWATn44kD2WH9O9Cy4vCYEzjgNLNX0YJ9dPleHC9ZqDkzWfiatzpFknJuGqE69V8bpfDGmOScfKfMWo23FchjBuUCtl2CyohOt=s16000">
+  <link rel="apple-touch-icon" href="https://blogger.googleusercontent.com/img/a/AVvXsEjk7Fazl5qegIaD-QoS5T8kRLfcy0uSi_zhGxN1wO6eCZRpDKziP3zOGAXNMFRZgETymFdKwI-i7bjOWcYW7l24zuTFFvQWATn44kD2WH9O9Cy4vCYEzjgNLNX0YJ9dPleHC9ZqDkzWfiatzpFknJuGqE69V8bpfDGmOScfKfMWo23FchjBuUCtl2CyohOt=s16000">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Asli Masala">
   
+  <!-- Link to the physical, secure Web Manifest file required for PWA installation -->
+  <link rel="manifest" href="manifest.json">
+
   <!-- CSS Framework Tailwind, Animate.css, Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -97,15 +102,15 @@
       <!-- Spice Grinding / Spinning Masala Animation -->
       <div class="relative mb-6 flex items-center justify-center">
         <!-- Golden outer spice orbit ring -->
-        <div class="w-28 h-24 rounded-full border-4 border-dashed border-amber-500/30 animate-spin" style="animation-duration: 10s;"></div>
+        <div class="w-32 h-32 rounded-full border-4 border-dashed border-amber-500/30 animate-spin" style="animation-duration: 10s;"></div>
         <!-- Sparkling spice particles -->
         <div class="absolute top-1 left-4 w-3 h-3 bg-amber-500 rounded-full animate-ping"></div>
         <div class="absolute bottom-1 right-4 w-2.5 h-2.5 bg-amber-400 rounded-full animate-ping" style="animation-delay: 0.8s;"></div>
         <div class="absolute top-1/2 right-1 w-2 h-2 bg-yellow-500 rounded-full animate-ping" style="animation-delay: 1.5s;"></div>
         
-        <!-- Bouncing Chili central asset icon -->
+        <!-- Official Logo Central Placement -->
         <div class="absolute inset-0 flex items-center justify-center">
-          <span class="text-6xl animate-bounce block select-none" style="animation-duration: 1.5s;">🌶️</span>
+          <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjk7Fazl5qegIaD-QoS5T8kRLfcy0uSi_zhGxN1wO6eCZRpDKziP3zOGAXNMFRZgETymFdKwI-i7bjOWcYW7l24zuTFFvQWATn44kD2WH9O9Cy4vCYEzjgNLNX0YJ9dPleHC9ZqDkzWfiatzpFknJuGqE69V8bpfDGmOScfKfMWo23FchjBuUCtl2CyohOt=s16000" alt="Asli Masala Brand Logo" class="w-16 h-16 object-contain rounded-xl shadow-md animate-bounce" style="animation-duration: 1.5s;">
         </div>
       </div>
       
@@ -131,8 +136,9 @@
   <header class="bg-slate-900 text-white py-4 px-6 shadow-md border-b border-slate-800">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
       <div class="flex items-center space-x-3">
-        <div class="p-2.5 bg-amber-500 rounded-xl flex items-center justify-center shadow-md">
-          <i data-lucide="sparkles" class="w-6 h-6 text-slate-950"></i>
+        <!-- Replaced sparkles icon with clean official logo in header -->
+        <div class="p-1 bg-amber-500 rounded-xl flex items-center justify-center shadow-md">
+          <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjk7Fazl5qegIaD-QoS5T8kRLfcy0uSi_zhGxN1wO6eCZRpDKziP3zOGAXNMFRZgETymFdKwI-i7bjOWcYW7l24zuTFFvQWATn44kD2WH9O9Cy4vCYEzjgNLNX0YJ9dPleHC9ZqDkzWfiatzpFknJuGqE69V8bpfDGmOScfKfMWo23FchjBuUCtl2CyohOt=s16000" alt="Asli Masala Header Logo" class="w-9 h-9 object-contain rounded-lg">
         </div>
         <div>
           <h1 id="header-brand-name" class="font-extrabold text-xl tracking-wide uppercase text-amber-500">Asli Masala</h1>
@@ -154,21 +160,22 @@
     <section id="view-landing" class="view hidden max-w-lg mx-auto py-8">
       <div class="bg-white rounded-[2.5rem] shadow-2xl p-8 border border-slate-100 text-center animate__animated animate__fadeIn">
         <div id="landing-logo-container" class="mb-6 flex justify-center">
-          <div class="w-32 h-32 bg-amber-50 rounded-full flex items-center justify-center border border-amber-100 shadow-inner">
-            <span class="text-6xl drop-shadow-md">🌶️</span>
+          <!-- Replaced default emoji with official logo inside a clean, modern container -->
+          <div class="w-36 h-36 bg-amber-50 rounded-full flex items-center justify-center border border-amber-100 shadow-inner overflow-hidden">
+            <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjk7Fazl5qegIaD-QoS5T8kRLfcy0uSi_zhGxN1wO6eCZRpDKziP3zOGAXNMFRZgETymFdKwI-i7bjOWcYW7l24zuTFFvQWATn44kD2WH9O9Cy4vCYEzjgNLNX0YJ9dPleHC9ZqDkzWfiatzpFknJuGqE69V8bpfDGmOScfKfMWo23FchjBuUCtl2CyohOt=s16000" alt="Asli Masala Brand Logo" class="w-full h-full object-contain p-2">
           </div>
         </div>
         <h2 id="welcome-title" class="text-3xl font-extrabold text-slate-900 tracking-tight">Asli Masala Rewards</h2>
         <p id="welcome-subtitle" class="text-slate-500 mt-2 text-sm leading-relaxed">
-          Collect stamps to unlock premium rewards. Track progress live.
+          Spend ₹500 or more to earn 1 loyalty stamp. Collect 10 stamps to claim rewards!
         </p>
 
         <!-- Dynamic Incentive Highlight Card -->
         <div class="my-6 p-5 bg-gradient-to-br from-slate-50 to-amber-50/40 rounded-3xl border border-slate-200/60 text-left">
-          <h4 class="text-xs font-bold tracking-widest text-amber-600 uppercase">CURRENT CAMPAIGN</h4>
+          <h4 class="text-xs font-bold tracking-widest text-amber-600 uppercase">LOYALTY SYSTEM RULE</h4>
           <h3 id="incentive-reward-name" class="text-xl font-bold text-slate-800 mt-1">Free 500g Haldi Powder</h3>
-          <p class="text-slate-500 text-xs mt-1">
-            Achieve <span id="incentive-target-count" class="font-bold text-slate-900">10</span> loyalty stamps and swap your card for this amazing rewards pack instantly.
+          <p class="text-slate-500 text-xs mt-1 leading-relaxed">
+            Every shop of <strong class="text-slate-900 font-extrabold">₹500</strong> gains <strong class="text-slate-900 font-extrabold">1 stamp</strong>. Reach <span id="incentive-target-count" class="font-bold text-slate-900">10</span> stamps to swap your card for this amazing rewards pack.
           </p>
           <div class="mt-3 flex items-center gap-2 text-xs font-semibold text-slate-600">
             <i data-lucide="check-circle" class="w-4 h-4 text-amber-500"></i>
@@ -265,7 +272,7 @@
       <!-- Greeting and Header Block -->
       <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
         <div>
-          <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-extrabold rounded-full tracking-wide">CUSTOMER PASSPORT</span>
+          <span class="px-3 py-1 bg-amber-550/10 text-amber-700 text-xs font-extrabold rounded-full tracking-wide">CUSTOMER PASSPORT</span>
           <h2 class="text-2xl font-black text-slate-800 mt-2">Namaste, <span id="customer-display-name">Guest</span>!</h2>
           <p class="text-xs text-slate-400 mt-0.5">ID: <span id="customer-display-id" class="font-mono">CUST-000000</span> | Registered: <span id="customer-join-date">Loading...</span></p>
         </div>
@@ -285,7 +292,7 @@
         <div class="flex justify-between items-center pb-4 border-b border-slate-100 mb-6">
           <div>
             <h3 class="font-extrabold text-lg text-slate-800">Your Stamp Passport</h3>
-            <p class="text-xs text-slate-400 mt-0.5">Earn to unlock <strong id="card-target-reward-label" class="text-slate-700">500g Haldi Powder</strong></p>
+            <p class="text-xs text-slate-500 mt-0.5">Earn 1 stamp for every ₹500 purchase to unlock <strong id="card-target-reward-label" class="text-slate-700">500g Haldi Powder</strong></p>
           </div>
           <span id="card-progress-percentage" class="text-sm font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">0%</span>
         </div>
@@ -382,7 +389,7 @@
           </div>
         </div>
         <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
-          <div class="p-3 bg-amber-50 text-amber-600 rounded-xl">
+          <div class="p-3 bg-amber-100 text-amber-600 rounded-xl">
             <i data-lucide="stamp" class="w-6 h-6"></i>
           </div>
           <div>
@@ -730,6 +737,9 @@
       const sloganEl = document.getElementById("loading-slogan");
       if (!sloganEl) return;
       
+      // Set initial slogan matched to the ₹500 rule
+      sloganEl.innerText = "Shop for ₹500 to earn 1 Stamp...";
+      
       setInterval(() => {
         sloganIndex = (sloganIndex + 1) % slogans.length;
         sloganEl.classList.remove("animate__fadeInUp");
@@ -758,16 +768,13 @@
       const logoContainer = document.getElementById("landing-logo-container");
       if (!logoContainer) return;
       
-      // If a custom logo URL is configured in settings, render it perfectly. Otherwise, render a large, prominent default Chili logo.
-      if (systemState && systemState.settings && systemState.settings.logo_url && systemState.settings.logo_url.trim() !== "") {
-        logoContainer.innerHTML = `<img src="${systemState.settings.logo_url}" alt="Custom Store Logo" class="w-32 h-32 object-contain rounded-3xl border-4 border-white shadow-xl animate__animated animate__zoomIn">`;
-      } else {
-        logoContainer.innerHTML = `
-          <div class="w-32 h-32 bg-gradient-to-br from-amber-500 to-amber-600 rounded-full flex items-center justify-center border-4 border-white shadow-xl animate__animated animate__pulse animate__infinite">
-            <span class="text-6xl drop-shadow-md">🌶️</span>
-          </div>
-        `;
-      }
+      // Official Google Blogger-hosted brand logo asset
+      const defaultLogoUrl = "https://blogger.googleusercontent.com/img/a/AVvXsEjk7Fazl5qegIaD-QoS5T8kRLfcy0uSi_zhGxN1wO6eCZRpDKziP3zOGAXNMFRZgETymFdKwI-i7bjOWcYW7l24zuTFFvQWATn44kD2WH9O9Cy4vCYEzjgNLNX0YJ9dPleHC9ZqDkzWfiatzpFknJuGqE69V8bpfDGmOScfKfMWo23FchjBuUCtl2CyohOt=s16000";
+      const logoUrl = (systemState && systemState.settings && systemState.settings.logo_url && systemState.settings.logo_url.trim() !== "") 
+        ? systemState.settings.logo_url 
+        : defaultLogoUrl;
+      
+      logoContainer.innerHTML = `<img src="${logoUrl}" alt="Asli Masala Logo" class="w-32 h-32 object-contain rounded-3xl border-4 border-white shadow-xl animate__animated animate__zoomIn">`;
     }
 
     // --- DECUPLED API AND DATABASE HANDSHAKE SYNC ---
@@ -1329,7 +1336,7 @@
             headers: { "Content-Type": "text/plain" },
             body: JSON.stringify({ action: "redeem", customerId })
           });
-          const data = await res.json();
+          const data = await data.json();
           if (data && data.success) {
             showToast(data.message, "success");
             await synchronizeEngineState();
