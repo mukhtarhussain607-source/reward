@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asli Masala Rewards</title>
+  
+  <!-- CSS Framework Tailwind, Animate.css, Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Scripts: Icons, Charts, QR, Confetti, HTML5 QR Scanner -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f8fafc;
+    }
+    .brand-crimson { color: #D32F2F; }
+    .bg-brand-crimson { background-color: #D32F2F; }
+    .bg-brand-crimson-hover:hover { background-color: #B71C1C; }
+    .border-brand-crimson { border-color: #D32F2F; }
+    
+    /* Elegant Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* Interactive Stamp Grid Animations */
+    .stamp-cell-animate {
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .stamp-cell-animate:hover {
+      transform: scale(1.08);
+    }
+
+    /* HTML5 QR Scanner Viewfinder Custom Premium Styling */
+    #qr-reader {
+      border: none !important;
+      width: 100% !important;
+      height: 100% !important;
+    }
+    #qr-reader__scan_region {
+      background: #0f172a !important;
+    }
+    #qr-reader video {
+      object-fit: cover !important;
+      width: 100% !important;
+      height: 100% !important;
+      border-radius: 1rem;
+    }
+    #qr-reader__dashboard {
+      display: none !important; /* Hide standard plain text configuration links in viewfinder */
+    }
+  </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- TOP HEADER BANNER -->
+  <header class="bg-slate-900 text-white py-4 px-6 shadow-md border-b border-slate-800">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <div class="p-2.5 bg-red-600 rounded-xl flex items-center justify-center">
+          <i data-lucide="sparkles" class="w-6 h-6 text-white animate-pulse"></i>
+        </div>
+        <div>
+          <h1 id="header-brand-name" class="font-extrabold text-xl tracking-wide uppercase">Asli Masala</h1>
+          <p class="text-xs text-red-400 font-semibold tracking-wider">PREMIUM REWARDS CLUB</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span id="connection-badge" class="px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all duration-300">
+          <span class="w-2.5 h-2.5 rounded-full animate-ping"></span>
+          <span id="badge-text">Initializing...</span>
+        </span>
+        <button id="logout-btn" onclick="logout()" class="hidden bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-1.5 px-4 rounded-lg text-sm border border-slate-700 transition">
+          Sign Out
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="flex-grow max-w-6xl w-full mx-auto p-4 md:p-6 mb-12">
+    
+    <!-- 1. LANDING/WELCOME SCREEN -->
+    <section id="view-landing" class="view hidden max-w-lg mx-auto py-8">
+      <div class="bg-white rounded-[2.5rem] shadow-2xl p-8 border border-slate-100 text-center animate__animated animate__fadeIn">
+        <div id="landing-logo-container" class="mb-6 flex justify-center">
+          <!-- Fallback dynamic SVG logo -->
+          <div class="w-24 h-24 bg-red-50 rounded-full flex items-center justify-center border border-red-100 shadow-inner">
+            <i data-lucide="spice" class="w-12 h-12 text-red-600">🌶️</i>
+          </div>
+        </div>
+        <h2 id="welcome-title" class="text-3xl font-extrabold text-slate-900 tracking-tight">Spice Up Your Rewards</h2>
+        <p id="welcome-subtitle" class="text-slate-500 mt-3 leading-relaxed">
+          Unlock premium bonuses, direct free spices, and exclusive customer gifts. Collect stamps with every purchase!
+        </p>
+
+        <!-- Dynamic Incentive Highlight Card -->
+        <div class="my-8 p-6 bg-gradient-to-br from-slate-50 to-slate-100 rounded-3xl border border-slate-200/60 text-left">
+          <h4 class="text-xs font-bold tracking-widest text-red-600 uppercase">CURRENT CAMPAIGN</h4>
+          <h3 id="incentive-reward-name" class="text-xl font-bold text-slate-800 mt-1">Free 500g Haldi Powder</h3>
+          <p class="text-slate-500 text-sm mt-1">
+            Achieve <span id="incentive-target-count" class="font-bold text-slate-900">10</span> loyalty stamps and swap your card for this amazing rewards pack instantly.
+          </p>
+          <div class="mt-4 flex items-center gap-2 text-xs font-semibold text-slate-600">
+            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-500"></i>
+            <span>Register now & get 1 Welcome stamp free!</span>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <button onclick="switchView('register')" class="w-full bg-brand-crimson hover:bg-brand-crimson-hover text-white font-bold py-4 px-6 rounded-2xl shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
+            Create Reward Account
+          </button>
+          <button onclick="switchView('login')" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 px-6 rounded-2xl shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
+            Access My Card
+          </button>
+          <div class="pt-4 border-t border-slate-100 flex justify-center">
+            <button onclick="switchToAdminMode()" class="text-xs font-bold text-slate-400 hover:text-slate-600 transition flex items-center gap-1.5">
+              <i data-lucide="shield-alert" class="w-4 h-4"></i>
+              Merchant Admin Portal
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. LOGIN VIEW -->
+    <section id="view-login" class="view hidden max-w-md mx-auto py-12">
+      <div class="bg-white rounded-3xl shadow-xl p-8 border border-slate-100 animate__animated animate__fadeIn">
+        <button onclick="switchView('landing')" class="mb-6 text-slate-500 hover:text-slate-800 text-sm font-semibold flex items-center gap-1.5">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to start
+        </button>
+        <h2 class="text-2xl font-bold text-slate-900">Welcome Back</h2>
+        <p class="text-slate-500 text-sm mt-1">Sign in to check stamps and claim rewards.</p>
+
+        <form id="login-form" onsubmit="handleLogin(event)" class="mt-8 space-y-5">
+          <div>
+            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Registered Mobile</label>
+            <input type="tel" id="login-mobile" placeholder="e.g. 9876543210" required class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Account Password</label>
+            <input type="password" id="login-password" placeholder="••••••••" required class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition">
+          </div>
+          <button type="submit" class="w-full bg-brand-crimson hover:bg-brand-crimson-hover text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition">
+            Sign In
+          </button>
+        </form>
+        <p class="text-center text-xs text-slate-400 mt-6">
+          Don't have an account? <a href="#" onclick="switchView('register')" class="text-red-600 font-bold hover:underline">Sign up free</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- 3. REGISTER VIEW -->
+    <section id="view-register" class="view hidden max-w-md mx-auto py-8">
+      <div class="bg-white rounded-3xl shadow-xl p-8 border border-slate-100 animate__animated animate__fadeIn">
+        <button onclick="switchView('landing')" class="mb-6 text-slate-500 hover:text-slate-800 text-sm font-semibold flex items-center gap-1.5">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to start
+        </button>
+        <h2 class="text-2xl font-bold text-slate-900">Get Started Free</h2>
+        <p class="text-slate-500 text-sm mt-1">Create an account to start earning custom loyalty stamps.</p>
+
+        <form id="register-form" onsubmit="handleRegister(event)" class="mt-8 space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2.5">Your Full Name</label>
+            <input type="text" id="reg-name" placeholder="John Doe" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-red-500 focus:outline-none transition">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2.5">Mobile Number</label>
+            <input type="tel" id="reg-mobile" placeholder="e.g. 9876543210" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-red-500 focus:outline-none transition">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2.5">Choose Password</label>
+            <input type="password" id="reg-password" placeholder="Min. 4 Characters" required minlength="4" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-red-500 focus:outline-none transition">
+          </div>
+          <div class="flex items-start gap-2 py-2">
+            <input type="checkbox" id="reg-terms" required class="mt-1 accent-red-600 h-4 w-4">
+            <span class="text-xs text-slate-500 leading-snug">I accept terms and understand stamps are valid only at official outlets.</span>
+          </div>
+          <button type="submit" class="w-full bg-brand-crimson hover:bg-brand-crimson-hover text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition">
+            Register & Claim Welcome Stamp!
+          </button>
+        </form>
+        <p class="text-center text-xs text-slate-400 mt-6">
+          Already registered? <a href="#" onclick="switchView('login')" class="text-red-600 font-bold hover:underline">Log in here</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- 4. CUSTOMER DASHBOARD VIEW -->
+    <section id="view-customer" class="view hidden max-w-2xl mx-auto py-6">
+      
+      <!-- Greeting and Header Block -->
+      <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+        <div>
+          <span class="px-3 py-1 bg-red-50 text-red-600 text-xs font-extrabold rounded-full tracking-wide">CUSTOMER PASSPORT</span>
+          <h2 class="text-2xl font-black text-slate-800 mt-2">Namaste, <span id="customer-display-name">Guest</span>!</h2>
+          <p class="text-xs text-slate-400 mt-0.5">ID: <span id="customer-display-id" class="font-mono">CUST-000000</span> | Registered: <span id="customer-join-date">Loading...</span></p>
+        </div>
+        <div class="flex items-center gap-3">
+          <button onclick="toggleEditProfileModal(true)" class="p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 hover:text-slate-900 transition flex items-center justify-center" title="Edit Profile Details">
+            <i data-lucide="user-cog" class="w-5 h-5"></i>
+          </button>
+          <div class="px-4 py-2 bg-slate-900 text-white rounded-xl text-center">
+            <div id="customer-stat-stamps" class="text-xl font-bold">0</div>
+            <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Active Stamps</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stamp Card Visualization Passport Box -->
+      <div class="bg-white rounded-[2rem] p-6 md:p-8 shadow-lg border border-slate-100 mb-6">
+        <div class="flex justify-between items-center pb-4 border-b border-slate-100 mb-6">
+          <div>
+            <h3 class="font-extrabold text-lg text-slate-800">Your Stamp Passport</h3>
+            <p class="text-xs text-slate-400 mt-0.5">Earn to unlock <strong id="card-target-reward-label" class="text-slate-700">500g Haldi Powder</strong></p>
+          </div>
+          <span id="card-progress-percentage" class="text-sm font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">0%</span>
+        </div>
+
+        <!-- Stamp Progress Grid -->
+        <div id="stamp-grid" class="grid grid-cols-5 sm:grid-cols-5 md:grid-cols-5 gap-4">
+          <!-- Dynamically populated stamps cells -->
+        </div>
+
+        <!-- Complete Reward Call-out Banner -->
+        <div id="reward-celebration-banner" class="hidden mt-8 p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-2xl border border-amber-200 animate__animated animate__bounceIn">
+          <div class="flex items-start gap-4">
+            <span class="p-3 bg-amber-500 text-white rounded-xl text-2xl">🎉</span>
+            <div>
+              <h4 class="font-extrabold text-amber-900 text-lg">Reward Target Unlocked!</h4>
+              <p class="text-amber-800 text-sm mt-1">
+                You have collected all requested stamps! Present your phone to our storefront manager to claim your <strong id="reward-target-claim-desc">500g Haldi Powder Free</strong>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Customer Reference QR Code Scan Panel -->
+      <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-100 text-center">
+        <h4 class="text-xs font-bold text-slate-400 tracking-wider uppercase mb-1">STAMP CARD IDENTIFICATION QR</h4>
+        <p class="text-slate-500 text-xs mb-4">Let the merchant scan this to easily adjust stamps or process redemptions.</p>
+        <div class="flex justify-center bg-slate-50 p-6 rounded-2xl border border-dashed border-slate-200 max-w-[200px] mx-auto mb-3">
+          <div id="customer-id-qr-box"></div>
+        </div>
+        <p id="customer-id-string" class="text-sm font-bold font-mono tracking-widest text-slate-600">CUST-000000</p>
+      </div>
+    </section>
+
+    <!-- 5. EDIT PROFILE CUSTOM MODAL -->
+    <div id="edit-profile-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+      <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-slate-100 p-8 animate__animated animate__zoomIn animate__fast">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-xl font-bold text-slate-800">Edit Profile</h3>
+          <button onclick="toggleEditProfileModal(false)" class="p-1 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+        <form id="edit-profile-form" onsubmit="handleProfileUpdate(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Display Name</label>
+            <input type="text" id="edit-profile-name" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500 transition">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-600 uppercase mb-2">New Password</label>
+            <input type="password" id="edit-profile-password" placeholder="Leave blank to keep current" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500 transition">
+          </div>
+          <button type="submit" class="w-full mt-2 bg-brand-crimson hover:bg-brand-crimson-hover text-white font-bold py-3 px-6 rounded-xl shadow-md transition">
+            Save Modifications
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- 6. ADMINISTRATIVE SUITE (ADMIN VIEW) -->
+    <section id="view-admin" class="view hidden space-y-6">
+      
+      <!-- Admin Subheader Panel -->
+      <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <span class="px-3 py-1 bg-slate-900 text-white text-xs font-extrabold rounded-full tracking-wide uppercase">MANAGEMENT CONTROL SUITE</span>
+          <h2 class="text-2xl font-black text-slate-800 mt-2">Asli Masala Admin Dashboard</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Control live profiles, inspect registration velocity trends, and award stamps.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="exportToCSV()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-sm transition flex items-center gap-1.5 border border-slate-200">
+            <i data-lucide="download" class="w-4 h-4"></i> Export CSV
+          </button>
+          <button onclick="openQRTerminal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-sm transition flex items-center gap-1.5 border border-slate-200">
+            <i data-lucide="qr-code" class="w-4 h-4"></i> Terminal Link
+          </button>
+          <button onclick="switchView('settings')" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-sm transition flex items-center gap-1.5">
+            <i data-lucide="settings" class="w-4 h-4"></i> Adjust Config
+          </button>
+        </div>
+      </div>
+
+      <!-- Live High-Fidelity KPI Stats Bar -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
+          <div class="p-3 bg-red-100 text-red-600 rounded-xl">
+            <i data-lucide="users" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div id="kpi-total-customers" class="text-2xl font-black text-slate-800">0</div>
+            <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Total Customers</div>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
+          <div class="p-3 bg-amber-100 text-amber-600 rounded-xl">
+            <i data-lucide="stamp" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div id="kpi-total-stamps" class="text-2xl font-black text-slate-800">0</div>
+            <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Stamps Logged</div>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
+          <div class="p-3 bg-emerald-100 text-emerald-600 rounded-xl">
+            <i data-lucide="gift" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div id="kpi-total-claims" class="text-2xl font-black text-slate-800">0</div>
+            <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Redeemed Prizes</div>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
+          <div class="p-3 bg-blue-100 text-blue-600 rounded-xl">
+            <i data-lucide="database" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div id="kpi-engine-mode" class="text-sm font-black text-slate-800">Loading...</div>
+            <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Engine Protocol</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Directory and Trend Analysis -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Customer Directory (7 Columns) -->
+        <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-md lg:col-span-7 flex flex-col h-[650px]">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 pb-4 border-b border-slate-100 mb-4">
+            <div>
+              <h3 class="font-extrabold text-lg text-slate-800">Interactive Customer Directory</h3>
+              <p class="text-xs text-slate-400 mt-0.5">Filter customers, adjust active stamps, and award prizes.</p>
+            </div>
+          </div>
+          
+          <!-- Search input & Live Camera QR scanning control panel -->
+          <div class="flex flex-col sm:flex-row gap-3 mb-4">
+            <div class="relative flex-grow">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <i data-lucide="search" class="w-4 h-4"></i>
+              </span>
+              <input type="text" id="directory-search-input" oninput="filterCustomerDirectory()" placeholder="Search by name, mobile, or Customer ID..." class="w-full pl-10 pr-12 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 transition">
+              <!-- Integrated inline scanner icon for modern UX -->
+              <button onclick="openQRScannerModal()" type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-red-600 transition" title="Scan QR Code">
+                <i data-lucide="camera" class="w-5 h-5 animate-pulse"></i>
+              </button>
+            </div>
+            <button onclick="openQRScannerModal()" class="px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-sm transition flex items-center justify-center gap-2 shadow-md shrink-0">
+              <i data-lucide="qr-code" class="w-4 h-4"></i>
+              <span>Scan Customer Card</span>
+            </button>
+          </div>
+
+          <!-- Dynamic Directory Table Container -->
+          <div class="flex-grow overflow-y-auto pr-1">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="text-[10px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100">
+                  <th class="pb-3">Customer Details</th>
+                  <th class="pb-3 text-center">Stamps</th>
+                  <th class="pb-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="directory-tbody" class="divide-y divide-slate-100 text-slate-700 text-sm">
+                <!-- Records injected dynamically -->
+              </tbody>
+            </table>
+            <div id="directory-empty-state" class="hidden text-center py-12 text-slate-400">
+              <i data-lucide="search-code" class="w-12 h-12 mx-auto stroke-1.5 mb-2"></i>
+              <p class="text-sm font-semibold">No customer matches found.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trend Line Graph (5 Columns) -->
+        <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-md lg:col-span-5 flex flex-col justify-between">
+          <div>
+            <h3 class="font-extrabold text-lg text-slate-800">Registration Trend Analytics</h3>
+            <p class="text-xs text-slate-400 mt-0.5">Plotting client conversions over time</p>
+          </div>
+          <div class="my-6 relative flex-grow min-h-[300px] flex items-center justify-center">
+            <canvas id="registrationTrendChart" class="w-full h-full"></canvas>
+          </div>
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 flex items-center gap-3">
+            <i data-lucide="info" class="w-5 h-5 text-slate-400 flex-shrink-0"></i>
+            <p class="text-[11px] text-slate-500 leading-normal">
+              Customer metrics sync dynamically. High spikes indicate effective promotional campaign launches or regional marketing efforts.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. SETTINGS & GAS CONSOLE PANEL -->
+    <section id="view-settings" class="view hidden max-w-2xl mx-auto py-4">
+      <div class="bg-white rounded-3xl shadow-lg border border-slate-100 p-8 animate__animated animate__fadeIn">
+        <button onclick="switchView('admin')" class="mb-6 text-slate-500 hover:text-slate-800 text-sm font-semibold flex items-center gap-1.5">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to admin
+        </button>
+        <h2 class="text-2xl font-black text-slate-800">Engine Config & Setup</h2>
+        <p class="text-slate-400 text-xs mt-0.5">Maintain decoupled operational schemas, change logo URLs, configure target limits, and update API endpoints.</p>
+
+        <form id="settings-form" onsubmit="handleSettingsUpdate(event)" class="mt-8 space-y-6">
+          
+          <div class="p-5 bg-red-50 rounded-2xl border border-red-100 space-y-4">
+            <h3 class="text-xs font-black tracking-widest text-red-600 uppercase">DECOUPLED HANDSHAKE AGENT</h3>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-2">Google Apps Script Published Web App URL</label>
+              <input type="url" id="settings-api-url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-red-500 focus:outline-none transition">
+              <p class="text-[10px] text-slate-400 mt-1.5">Provide the Web App execution link from step 9 of deployment instructions. If empty, the system automatically runs the high-fidelity client-side local database simulator.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="testGASConnection()" class="px-4 py-2 bg-slate-950 hover:bg-slate-800 text-white font-bold text-xs rounded-xl transition shadow-sm">
+                Test Server Handshake
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Business Brand Name</label>
+              <input type="text" id="settings-brand-name" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-red-500 transition">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Brand Logo URL</label>
+              <input type="url" id="settings-logo-url" placeholder="Leave blank for default" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-red-500 transition">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Loyalty Reward Stamp Target</label>
+              <input type="number" id="settings-reward-target" min="2" max="20" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-red-500 transition">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Target Prize Name</label>
+              <input type="text" id="settings-reward-name" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-red-500 transition">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Admin Terminal Access Password</label>
+            <input type="text" id="settings-admin-password" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-red-500 transition">
+          </div>
+
+          <button type="submit" class="w-full bg-brand-crimson hover:bg-brand-crimson-hover text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition">
+            Save Engine Settings
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 8. ADMIN QR SCAN TERMINAL POPUP -->
+    <div id="admin-qr-terminal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+      <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-slate-100 p-8 animate__animated animate__zoomIn animate__fast text-center">
+        <div class="flex justify-between items-center mb-6 text-left">
+          <h3 class="text-xl font-bold text-slate-800">Merchant QR Terminal</h3>
+          <button onclick="toggleQRTerminal(false)" class="p-1 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+        <p class="text-xs text-slate-400 mb-6">Display this code at checkout. Customers scanning it will land directly at your registration/login terminal with the dynamic active frontend URL!</p>
+        
+        <div class="flex justify-center bg-slate-50 p-6 rounded-2xl border border-dashed border-slate-200 max-w-[220px] mx-auto mb-4">
+          <div id="admin-terminal-qr"></div>
+        </div>
+
+        <div class="bg-slate-100 rounded-xl p-3 text-slate-700 font-mono text-xs overflow-x-auto whitespace-nowrap mb-4">
+          <span id="admin-terminal-url-display">Fetching Client URL...</span>
+        </div>
+
+        <button onclick="copyTerminalURLToClipboard()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-6 rounded-xl shadow transition flex items-center justify-center gap-2">
+          <i data-lucide="copy" class="w-4 h-4"></i> Copy Web Address Link
+        </button>
+      </div>
+    </div>
+
+    <!-- 9. MERCHANT QR CODE CAMERA SCANNER MODAL -->
+    <div id="merchant-qr-scanner-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+      <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-slate-100 p-6 animate__animated animate__zoomIn animate__fast">
+        <div class="flex justify-between items-center mb-4">
+          <div class="flex items-center gap-2">
+            <span class="p-1.5 bg-red-50 text-red-600 rounded-lg flex items-center justify-center">
+              <i data-lucide="qr-code" class="w-5 h-5"></i>
+            </span>
+            <h3 class="text-lg font-bold text-slate-800">Scan Customer Card</h3>
+          </div>
+          <button onclick="closeQRScannerModal()" class="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+        
+        <p class="text-xs text-slate-400 mb-4">Align the customer's loyalty passport QR code within the viewfinder frame below to load details automatically.</p>
+        
+        <!-- Live Camera Viewfinder wrapper -->
+        <div class="relative overflow-hidden rounded-2xl bg-slate-950 border border-slate-800 aspect-square flex items-center justify-center mb-4 shadow-inner">
+          <div id="qr-reader"></div>
+          <!-- Scanning state fallback placeholders -->
+          <div id="scanner-searching-placeholder" class="absolute inset-0 flex flex-col items-center justify-center text-slate-400 gap-3 p-4 text-center bg-slate-950">
+            <i data-lucide="aperture" class="w-10 h-10 animate-spin text-red-500"></i>
+            <span class="text-xs font-semibold tracking-wide">Requesting environment camera access...</span>
+          </div>
+        </div>
+
+        <button onclick="closeQRScannerModal()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-6 rounded-xl text-sm transition">
+          Cancel Operation
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- PWA INSTALLATION BANNER -->
+  <div id="pwa-install-banner" class="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md bg-slate-900 text-white p-5 rounded-3xl shadow-2xl border border-slate-800 z-50 flex items-center justify-between gap-4 hidden animate__animated animate__slideInUp">
+    <div class="flex items-center gap-3">
+      <span class="p-2.5 bg-red-600 rounded-xl text-lg">📲</span>
+      <div>
+        <h4 class="font-bold text-sm">Add to Home Screen</h4>
+        <p class="text-xs text-slate-400">Install "Asli Masala" as a mobile App wrapper</p>
+      </div>
+    </div>
+    <div class="flex gap-2">
+      <button onclick="dismissPWAInstall()" class="text-slate-400 hover:text-white text-xs font-bold px-2 py-1">Dismiss</button>
+      <button onclick="triggerPWAInstall()" class="bg-brand-crimson hover:bg-brand-crimson-hover text-white text-xs font-bold px-3 py-1.5 rounded-xl transition">Install</button>
+    </div>
+  </div>
+
+  <!-- FLOATING GLOBAL TOAST CONTAINER -->
+  <div id="toast-container" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col gap-3 z-50 w-full max-w-sm px-4"></div>
+
+  <!-- FOOTER BRAND MARK -->
+  <footer class="bg-slate-900 text-slate-500 py-6 text-center text-xs border-t border-slate-800/80">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p>&copy; 2026 Asli Masala Loyalty Program Engine. Decoupled Architecture Protocol.</p>
+      <p class="font-semibold text-slate-400 flex items-center gap-1.5 justify-center">
+        <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-ping"></span> Safe Sandbox Bypass Shield
+      </p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT IMPLEMENTATIONS AND STATE ENGINE -->
+  <script>
+    // --- APP CORE VARIABLES ---
+    let API_URL = "https://script.google.com/macros/s/AKfycbyYXePfE7cNLlF4HnQP8be5poaVUIu55bjzsWzJLaOzhxN957GcUI7JWLxbpjJAkkGp/exec"; 
+    let IS_OFFLINE_MODE = true;
+    let currentUser = null;
+    let systemState = null;
+    let deferredAppPrompt = null;
+    let trendsChart = null;
+    let html5QrScanner = null; // Instantiated QR Engine controller reference
+
+    // --- FULL OFFLINE SIMULATOR DATABASE SCHEMA ---
+    const LOCAL_DB_KEY = "asli_masala_mock_database";
+    const DEFAULT_SIMULATOR_DB = {
+      customers: [
+        { customer_id: "CUST-983174", name: "Rohan Mehra", mobile: "9876543210", password: "user123", current_stamps: 8, reward_status: "Earning stamps", registration_date: "2026-06-01 10:14:22" },
+        { customer_id: "CUST-104928", name: "Priya Sharma", mobile: "9988776655", password: "user123", current_stamps: 10, reward_status: "Reward Ready!", registration_date: "2026-06-05 14:32:11" },
+        { customer_id: "CUST-441295", name: "Amit Verma", mobile: "9123456789", password: "user123", current_stamps: 3, reward_status: "Earning stamps", registration_date: "2026-06-10 18:05:40" }
+      ],
+      stamps: [
+        { stamp_id: "STMP-210495", customer_id: "CUST-983174", date_added: "2026-06-01 10:14:22", added_by: "System (Welcome Bonus)" },
+        { stamp_id: "STMP-559104", customer_id: "CUST-104928", date_added: "2026-06-05 14:32:11", added_by: "System (Welcome Bonus)" },
+        { stamp_id: "STMP-331298", customer_id: "CUST-441295", date_added: "2026-06-10 18:05:40", added_by: "System (Welcome Bonus)" }
+      ],
+      redemptions: [
+        { redemption_id: "RDM-491029", customer_id: "CUST-104928", reward_name: "500g Haldi Powder Free", date_redeemed: "2026-06-06 11:20:00" }
+      ],
+      rewards: [
+        { reward_id: "RWD-001", reward_name: "500g Haldi Powder Free", required_stamp: 10, description: "Collect 10 loyalty stamps to redeem a premium quality 500g Haldi (Turmeric) powder pack.", status: "Active" }
+      ],
+      settings: {
+        business_name: "Asli Masala Rewards",
+        logo_url: "",
+        reward_target: 10,
+        reward_name: "500g Haldi Powder Free",
+        admin_password: "admin123"
+      }
+    };
+
+    // --- LIFE CYCLE INITIALIZATION ---
+    window.onload = function() {
+      // 1. Retrieve saved API Script URL from LocalStorage if it exists
+      const savedUrl = localStorage.getItem("asli_masala_api_url");
+      if (savedUrl && savedUrl.trim() !== "") {
+        API_URL = savedUrl;
+      }
+
+      // 2. Initialize graphics and navigation elements
+      lucide.createIcons();
+      initializeThemeStyles();
+      
+      // 3. Kickstart database state load routine
+      synchronizeEngineState();
+
+      // 4. Hook PWA installers
+      setupPWAListeners();
+
+      // 5. Deep Link checking: Check if query parameters contain customer filter searches
+      const urlParams = new URLSearchParams(window.location.search);
+      const searchCust = urlParams.get("searchCust");
+      if (searchCust) {
+        document.getElementById("directory-search-input").value = searchCust.trim();
+        showToast(`Deep-link filter cached for user: ${searchCust}`, "info");
+      }
+    };
+
+    function initializeThemeStyles() {
+      // Dynamic fallbacks if window changes
+      const logoContainer = document.getElementById("landing-logo-container");
+      if (systemState && systemState.settings && systemState.settings.logo_url && systemState.settings.logo_url.trim() !== "") {
+        logoContainer.innerHTML = `<img src="${systemState.settings.logo_url}" alt="Logo" class="w-24 h-24 object-contain rounded-2xl">`;
+      }
+    }
+
+    // --- DECUPLED API AND DATABASE HANDSHAKE SYNC ---
+    async function synchronizeEngineState() {
+      const badge = document.getElementById("connection-badge");
+      const badgeText = document.getElementById("badge-text");
+
+      badge.className = "px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all duration-300 bg-amber-50 text-amber-700 border border-amber-200";
+      badgeText.innerText = "Connecting...";
+
+      if (!API_URL || API_URL.trim() === "") {
+        // Fall back gracefully to high-fidelity client simulation database
+        setupLocalSimulation();
+        return;
+      }
+
+      try {
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error("HTTP connection check aborted.");
+        const data = await response.json();
+        
+        if (data && data.success) {
+          systemState = data;
+          IS_OFFLINE_MODE = false;
+          
+          badge.className = "px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all duration-300 bg-emerald-50 text-emerald-700 border border-emerald-200";
+          badgeText.innerText = "Live Cloud Server";
+          showToast("Live Google Sheet Connection Established!", "success");
+        } else {
+          throw new Error(data.error || "Execution error reading payload.");
+        }
+      } catch (err) {
+        console.warn("GAS Connection failed. Booting client simulator: ", err);
+        setupLocalSimulation();
+      }
+
+      renderAppViewsByState();
+    }
+
+    function setupLocalSimulation() {
+      IS_OFFLINE_MODE = true;
+      const badge = document.getElementById("connection-badge");
+      const badgeText = document.getElementById("badge-text");
+
+      badge.className = "px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all duration-300 bg-yellow-50 text-yellow-700 border border-yellow-200";
+      badgeText.innerText = "Offline Database Simulator";
+
+      let db = localStorage.getItem(LOCAL_DB_KEY);
+      if (!db) {
+        localStorage.setItem(LOCAL_DB_KEY, JSON.stringify(DEFAULT_SIMULATOR_DB));
+        systemState = DEFAULT_SIMULATOR_DB;
+      } else {
+        systemState = JSON.parse(db);
+      }
+      
+      showToast("Running secure Local Database Simulator mode.", "info");
+      renderAppViewsByState();
+    }
+
+    // Save offline state back to localStorage
+    function saveLocalSimulatorDB() {
+      if (IS_OFFLINE_MODE) {
+        localStorage.setItem(LOCAL_DB_KEY, JSON.stringify(systemState));
+      }
+    }
+
+    // Test URL handler in Admin panel
+    async function testGASConnection() {
+      const testUrlInput = document.getElementById("settings-api-url").value.trim();
+      if (!testUrlInput) {
+        showToast("Please enter a valid Web App URL to test.", "warning");
+        return;
+      }
+
+      showToast("Testing server endpoint handshake...", "info");
+      try {
+        // Use text/plain to completely bypass preflight OPTIONS blocks on execution endpoints
+        const res = await fetch(testUrlInput, {
+          method: "POST",
+          mode: "cors",
+          headers: { "Content-Type": "text/plain" },
+          body: JSON.stringify({ action: "testConnection" })
+        });
+        const data = await res.json();
+        if (data && data.success) {
+          showToast("Handshake successful! Server responded: " + data.message, "success");
+        } else {
+          showToast("Failed to connect: " + (data.error || "Response payload empty"), "error");
+        }
+      } catch (e) {
+        showToast("Network Error: Make sure your script is deployed as 'Anyone' and CORS is bypassed.", "error");
+      }
+    }
+
+    // --- VIEW ROUTER ENGINE ---
+    function switchView(viewId) {
+      document.querySelectorAll(".view").forEach(v => v.classList.add("hidden"));
+      const target = document.getElementById("view-" + viewId);
+      if (target) {
+        target.classList.remove("hidden");
+        // Ensure Lucide draws accurate newly loaded dynamic SVGs
+        lucide.createIcons();
+      }
+      
+      // Toggle sign out visual indicators
+      const logoutBtn = document.getElementById("logout-btn");
+      if (currentUser || viewId === "admin" || viewId === "settings") {
+        logoutBtn.classList.remove("hidden");
+      } else {
+        logoutBtn.classList.add("hidden");
+      }
+    }
+
+    function renderAppViewsByState() {
+      if (!systemState) return;
+
+      const brandTextElements = [
+        document.getElementById("header-brand-name"),
+        document.getElementById("welcome-title")
+      ];
+      brandTextElements.forEach(el => {
+        if (el && systemState.settings.business_name) {
+          el.innerText = systemState.settings.business_name;
+        }
+      });
+
+      // Update Landing Dynamic Cards
+      document.getElementById("incentive-reward-name").innerText = systemState.settings.reward_name;
+      document.getElementById("incentive-target-count").innerText = systemState.settings.reward_target;
+      document.getElementById("card-target-reward-label").innerText = systemState.settings.reward_name;
+
+      // Fill in settings panel placeholders
+      document.getElementById("settings-brand-name").value = systemState.settings.business_name || "";
+      document.getElementById("settings-logo-url").value = systemState.settings.logo_url || "";
+      document.getElementById("settings-reward-target").value = systemState.settings.reward_target || 10;
+      document.getElementById("settings-reward-name").value = systemState.settings.reward_name || "";
+      document.getElementById("settings-admin-password").value = systemState.settings.admin_password || "";
+      document.getElementById("settings-api-url").value = API_URL || "";
+
+      // Re-trigger view structures if user is currently logged in
+      if (currentUser) {
+        // Refresh logged in customer session object reference directly from updated state
+        const refreshedUser = systemState.customers.find(c => c.customer_id === currentUser.customer_id);
+        if (refreshedUser) {
+          currentUser = refreshedUser;
+          renderCustomerDashboard();
+        }
+      }
+
+      // If active panel is Admin, update analytics graph and lists
+      const adminPanel = document.getElementById("view-admin");
+      if (adminPanel && !adminPanel.classList.contains("hidden")) {
+        renderAdminDashboard();
+      } else {
+        // Safe default router fallback on fresh system sync
+        if (!currentUser) switchView("landing");
+      }
+    }
+
+    // --- CLIENT TRANSITIONS: LOG IN & SIGN OUT ---
+    function handleLogin(e) {
+      e.preventDefault();
+      const mobile = document.getElementById("login-mobile").value.trim();
+      const pass = document.getElementById("login-password").value.trim();
+
+      if (!systemState) {
+        showToast("Database not available yet. Please wait.", "warning");
+        return;
+      }
+
+      const match = systemState.customers.find(c => c.mobile.toString() === mobile && c.password.toString() === pass);
+      if (match) {
+        currentUser = match;
+        showToast("Welcome back, " + currentUser.name + "!", "success");
+        renderCustomerDashboard();
+        switchView("customer");
+        document.getElementById("login-form").reset();
+      } else {
+        showToast("Invalid credentials. Please verify your mobile and password.", "error");
+      }
+    }
+
+    async function handleRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById("reg-name").value.trim();
+      const mobile = document.getElementById("reg-mobile").value.trim();
+      const password = document.getElementById("reg-password").value.trim();
+
+      if (IS_OFFLINE_MODE) {
+        // Simulate local registration with validation
+        const duplicate = systemState.customers.find(c => c.mobile.toString() === mobile);
+        if (duplicate) {
+          showToast("Mobile number is already registered.", "error");
+          return;
+        }
+
+        const customerId = "CUST-" + Math.floor(100000 + Math.random() * 900000);
+        const stampId = "STMP-" + Math.floor(100000 + Math.random() * 900000);
+        const formattedDate = new Date().toISOString().replace('T', ' ').substring(0, 19);
+
+        const newCustomer = {
+          customer_id: customerId,
+          name: name,
+          mobile: mobile,
+          password: password,
+          current_stamps: 1, // Dynamic Welcome Stamp bonus auto applied!
+          reward_status: "Earning stamps",
+          registration_date: formattedDate
+        };
+
+        systemState.customers.push(newCustomer);
+        systemState.stamps.push({
+          stamp_id: stampId,
+          customer_id: customerId,
+          date_added: formattedDate,
+          added_by: "System (Welcome Bonus)"
+        });
+
+        saveLocalSimulatorDB();
+        currentUser = newCustomer;
+        showToast("Registration Successful! Enjoy your free welcome stamp.", "success");
+        renderAppViewsByState();
+        switchView("customer");
+        document.getElementById("register-form").reset();
+      } else {
+        // Query live Google Apps Script endpoint securely
+        showToast("Submitting your secure registration details...", "info");
+        try {
+          const res = await fetch(API_URL, {
+            method: "POST",
+            mode: "cors",
+            headers: { "Content-Type": "text/plain" },
+            body: JSON.stringify({ action: "register", name, mobile, password })
+          });
+          const data = await res.json();
+          if (data && data.success) {
+            currentUser = data.customer;
+            showToast(data.message, "success");
+            await synchronizeEngineState();
+            switchView("customer");
+            document.getElementById("register-form").reset();
+          } else {
+            showToast(data.error || "Registration issue occurred.", "error");
+          }
+        } catch (err) {
+          showToast("Network execution failed during registration.", "error");
+        }
+      }
+    }
+
+    function logout() {
+      currentUser = null;
+      document.getElementById("logout-btn").classList.add("hidden");
+      showToast("Signed out from account session.", "info");
+      switchView("landing");
+    }
+
+    // --- CUSTOMER DASHBOARD RENDERING ROUTINE ---
+    function renderCustomerDashboard() {
+      if (!currentUser) return;
+
+      document.getElementById("customer-display-name").innerText = currentUser.name;
+      document.getElementById("customer-display-id").innerText = currentUser.customer_id;
+      document.getElementById("customer-join-date").innerText = currentUser.registration_date.split(' ')[0];
+      document.getElementById("customer-stat-stamps").innerText = currentUser.current_stamps;
+
+      const targetStamps = parseInt(systemState.settings.reward_target) || 10;
+      const currentStamps = parseInt(currentUser.current_stamps) || 0;
+      const progressPercent = Math.min(Math.round((currentStamps / targetStamps) * 100), 100);
+
+      document.getElementById("card-progress-percentage").innerText = progressPercent + "%";
+      
+      // Render beautiful high-fidelity stamp passport cells
+      const grid = document.getElementById("stamp-grid");
+      grid.innerHTML = "";
+
+      for (let i = 1; i <= targetStamps; i++) {
+        const cell = document.createElement("div");
+        cell.className = "stamp-cell-animate aspect-square rounded-2xl flex flex-col items-center justify-center border-2 transition-all duration-300 relative overflow-hidden shadow-sm";
+        
+        if (i <= currentStamps) {
+          // Stamp Active state (Crimson high depth design)
+          cell.className += " bg-red-50 border-red-500 scale-95 shadow-md";
+          cell.innerHTML = `
+            <div class="absolute inset-0 bg-red-600 rounded-2xl flex flex-col items-center justify-center text-white scale-95 shadow-inner">
+              <i data-lucide="check-circle" class="w-6 h-6 mb-1"></i>
+              <span class="text-[9px] font-black tracking-widest">SPICED</span>
+            </div>
+          `;
+        } else {
+          // Stamp Inactive empty slot state
+          cell.className += " bg-slate-50 border-dashed border-slate-300 hover:border-slate-400";
+          cell.innerHTML = `
+            <span class="text-sm font-bold text-slate-400 font-mono">${i}</span>
+            <span class="text-[8px] text-slate-300 font-semibold tracking-wider mt-0.5">EMPTY</span>
+          `;
+        }
+        grid.appendChild(cell);
+      }
+
+      // Check for Target Milestone completion Confetti & Celebrations
+      const prizeBanner = document.getElementById("reward-celebration-banner");
+      document.getElementById("reward-target-claim-desc").innerText = systemState.settings.reward_name;
+
+      if (currentStamps >= targetStamps) {
+        prizeBanner.classList.remove("hidden");
+        triggerLoyaltyConfetti();
+      } else {
+        prizeBanner.classList.add("hidden");
+      }
+
+      // Generate dynamic client reference QR identification
+      generateClientQR();
+      lucide.createIcons();
+    }
+
+    function generateClientQR() {
+      const qrBox = document.getElementById("customer-id-qr-box");
+      qrBox.innerHTML = "";
+      
+      // Workaround: Prevent reading parent window URL inside standard sandboxed iframes
+      const clientUrl = window.location.href.split('?')[0];
+      const codeValue = `${clientUrl}?searchCust=${currentUser.customer_id}`;
+
+      new QRCode(qrBox, {
+        text: codeValue,
+        width: 140,
+        height: 140,
+        colorDark: "#1e293b",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+      document.getElementById("customer-id-string").innerText = currentUser.customer_id;
+    }
+
+    function triggerLoyaltyConfetti() {
+      confetti({
+        particleCount: 150,
+        spread: 80,
+        origin: { y: 0.6 },
+        colors: ["#D32F2F", "#111111", "#ffbf00", "#ff4500"]
+      });
+    }
+
+    // --- ADMINISTRATIVE SUITE LOGIC ---
+    function switchToAdminMode() {
+      const userPass = prompt("Please input your Administration Credential Password:");
+      if (userPass === null) return;
+
+      const adminKey = systemState.settings.admin_password || "admin123";
+      if (userPass === adminKey) {
+        showToast("Administrative credential cleared.", "success");
+        renderAdminDashboard();
+        switchView("admin");
+      } else {
+        showToast("Incorrect system key code.", "error");
+      }
+    }
+
+    function renderAdminDashboard() {
+      // 1. Calculate and inject key metrics
+      const countCustomers = systemState.customers.length;
+      const countStamps = systemState.stamps.length;
+      const countRedemptions = systemState.redemptions.length;
+
+      document.getElementById("kpi-total-customers").innerText = countCustomers;
+      document.getElementById("kpi-total-stamps").innerText = countStamps;
+      document.getElementById("kpi-total-claims").innerText = countRedemptions;
+      
+      const modeBox = document.getElementById("kpi-engine-mode");
+      if (IS_OFFLINE_MODE) {
+        modeBox.innerText = "LOCAL MEMORY";
+        modeBox.className = "text-sm font-black text-amber-600";
+      } else {
+        modeBox.innerText = "GOOGLE CLOUD";
+        modeBox.className = "text-sm font-black text-emerald-600";
+      }
+
+      // 2. Load Customer directory table
+      filterCustomerDirectory();
+
+      // 3. Render analytical line chart
+      renderRegistrationChart();
+    }
+
+    function filterCustomerDirectory() {
+      const searchVal = document.getElementById("directory-search-input").value.toLowerCase().trim();
+      const tbody = document.getElementById("directory-tbody");
+      const emptyState = document.getElementById("directory-empty-state");
+      tbody.innerHTML = "";
+
+      let matches = systemState.customers.filter(c => {
+        return c.name.toLowerCase().includes(searchVal) ||
+               c.mobile.toString().includes(searchVal) ||
+               c.customer_id.toLowerCase().includes(searchVal);
+      });
+
+      if (matches.length === 0) {
+        emptyState.classList.remove("hidden");
+        return;
+      }
+      emptyState.classList.add("hidden");
+
+      matches.forEach(cust => {
+        const tr = document.createElement("tr");
+        tr.className = "hover:bg-slate-50 transition border-b border-slate-100";
+        
+        const stampsVal = parseInt(cust.current_stamps) || 0;
+        const targetVal = parseInt(systemState.settings.reward_target) || 10;
+        const isReadyToRedeem = stampsVal >= targetVal;
+
+        // Custom style depending on stamps threshold balance
+        const stampStatusPill = isReadyToRedeem 
+          ? `<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-black bg-amber-100 text-amber-800 animate-pulse">Claim Ready!</span>`
+          : `<span class="text-xs font-medium text-slate-500">${stampsVal}/${targetVal} Stamps</span>`;
+
+        tr.innerHTML = `
+          <td class="py-4">
+            <div class="font-bold text-slate-800">${cust.name}</div>
+            <div class="text-[11px] text-slate-400 font-mono mt-0.5">${cust.customer_id} | Ph: ${cust.mobile}</div>
+          </td>
+          <td class="py-4 text-center">
+            <div class="font-extrabold text-slate-900">${cust.current_stamps}</div>
+            <div class="mt-1">${stampStatusPill}</div>
+          </td>
+          <td class="py-4 text-right">
+            <div class="flex items-center justify-end gap-1.5">
+              <button onclick="adminIncrementStamps('${cust.customer_id}', 1)" class="p-1.5 bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white rounded-lg transition" title="Add Stamp">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+              </button>
+              <button onclick="adminIncrementStamps('${cust.customer_id}', -1)" class="p-1.5 bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white rounded-lg transition" title="Deduct Stamp">
+                <i data-lucide="minus" class="w-4 h-4"></i>
+              </button>
+              <button onclick="adminClaimPrize('${cust.customer_id}')" class="px-2.5 py-1.5 text-xs font-bold rounded-lg transition ${isReadyToRedeem ? 'bg-amber-500 hover:bg-amber-600 text-white' : 'bg-slate-100 text-slate-400 cursor-not-allowed'}" ${isReadyToRedeem ? '' : 'disabled'}>
+                Claim Free Reward
+              </button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+      lucide.createIcons();
+    }
+
+    // --- TRANSACTION MODIFICATIONS FOR ADMINISTRATORS ---
+    async function adminIncrementStamps(customerId, offset) {
+      if (IS_OFFLINE_MODE) {
+        const custIdx = systemState.customers.findIndex(c => c.customer_id === customerId);
+        if (custIdx === -1) return;
+
+        let nextVal = (parseInt(systemState.customers[custIdx].current_stamps) || 0) + offset;
+        if (nextVal < 0) {
+          showToast("Action rejected. Customers cannot have less than 0 stamps.", "warning");
+          return;
+        }
+
+        const max = parseInt(systemState.settings.reward_target) || 10;
+        systemState.customers[custIdx].current_stamps = nextVal;
+        systemState.customers[custIdx].reward_status = nextVal >= max ? "Reward Ready!" : "Earning stamps";
+
+        // Append log
+        const stampId = "STMP-" + Math.floor(100000 + Math.random() * 900000);
+        systemState.stamps.push({
+          stamp_id: stampId,
+          customer_id: customerId,
+          date_added: new Date().toISOString().replace('T', ' ').substring(0, 19),
+          added_by: `Admin Office (${offset > 0 ? '+' : ''}${offset})`
+        });
+
+        saveLocalSimulatorDB();
+        showToast(`Stamps updated successfully for ${systemState.customers[custIdx].name}.`, "success");
+        renderAdminDashboard();
+      } else {
+        // Send updates securely to Apps Script Server endpoint
+        showToast("Publishing updates online...", "info");
+        try {
+          const res = await fetch(API_URL, {
+            method: "POST",
+            mode: "cors",
+            headers: { "Content-Type": "text/plain" },
+            body: JSON.stringify({ action: "changeStamps", customerId, offset, addedBy: "Admin Terminal Office" })
+          });
+          const data = await res.json();
+          if (data && data.success) {
+            showToast(data.message, "success");
+            await synchronizeEngineState();
+            renderAdminDashboard();
+          } else {
+            showToast(data.error || "Update operation failed.", "error");
+          }
+        } catch (e) {
+          showToast("A network issue blocked standard sync operations.", "error");
+        }
+      }
+    }
+
+    async function adminClaimPrize(customerId) {
+      const cust = systemState.customers.find(c => c.customer_id === customerId);
+      if (!cust) return;
+
+      if (!confirm(`Are you sure you want to claim the reward of '${systemState.settings.reward_name}' and reset the stamp balance for ${cust.name}?`)) {
+        return;
+      }
+
+      if (IS_OFFLINE_MODE) {
+        const custIdx = systemState.customers.findIndex(c => c.customer_id === customerId);
+        systemState.customers[custIdx].current_stamps = 0;
+        systemState.customers[custIdx].reward_status = "Earning stamps";
+
+        const redemptionId = "RDM-" + Math.floor(100000 + Math.random() * 900000);
+        systemState.redemptions.push({
+          redemption_id: redemptionId,
+          customer_id: customerId,
+          reward_name: systemState.settings.reward_name,
+          date_redeemed: new Date().toISOString().replace('T', ' ').substring(0, 19)
+        });
+
+        saveLocalSimulatorDB();
+        showToast("Reward processed successfully! Card reset to zero.", "success");
+        renderAdminDashboard();
+      } else {
+        showToast("Synchronizing redemption voucher...", "info");
+        try {
+          const res = await fetch(API_URL, {
+            method: "POST",
+            mode: "cors",
+            headers: { "Content-Type": "text/plain" },
+            body: JSON.stringify({ action: "redeem", customerId })
+          });
+          const data = await res.json();
+          if (data && data.success) {
+            showToast(data.message, "success");
+            await synchronizeEngineState();
+            renderAdminDashboard();
+          } else {
+            showToast(data.error || "Server issue resetting balance.", "error");
+          }
+        } catch (err) {
+          showToast("Network disconnect intercepted the operation.", "error");
+        }
+      }
+    }
+
+    // --- ADMINISTRATIVE WEBCAM QR SCANNING LOGIC ---
+    function openQRScannerModal() {
+      const modal = document.getElementById("merchant-qr-scanner-modal");
+      modal.classList.remove("hidden");
+      document.getElementById("scanner-searching-placeholder").classList.remove("hidden");
+
+      // Short delay to allow browser UI modal to finish reflowing before triggering webcam
+      setTimeout(() => {
+        startQRScannerEngine();
+      }, 350);
+    }
+
+    function startQRScannerEngine() {
+      if (html5QrScanner) {
+        try { html5QrScanner.clear(); } catch(err) {}
+      }
+
+      html5QrScanner = new Html5Qrcode("qr-reader");
+
+      const successCallback = (decodedText) => {
+        handleScannedCustomer(decodedText);
+        closeQRScannerModal();
+      };
+
+      const config = {
+        fps: 15,
+        qrbox: (viewWidth, viewHeight) => {
+          return {
+            width: Math.min(viewWidth * 0.7, 260),
+            height: Math.min(viewHeight * 0.7, 260)
+          };
+        },
+        aspectRatio: 1.0
+      };
+
+      html5QrScanner.start(
+        { facingMode: "environment" },
+        config,
+        successCallback
+      ).then(() => {
+        document.getElementById("scanner-searching-placeholder").classList.add("hidden");
+        showToast("Webcam viewport successfully initialized.", "info");
+      }).catch(err => {
+        console.error("Camera permissions check or access failed: ", err);
+        document.getElementById("scanner-searching-placeholder").innerHTML = `
+          <div class="p-4 text-center">
+            <i data-lucide="alert-circle" class="w-10 h-10 text-rose-500 mx-auto mb-2"></i>
+            <span class="text-xs font-bold text-rose-600 block">Camera Permission Denied</span>
+            <p class="text-[10px] text-slate-400 mt-2 max-w-[260px] mx-auto leading-relaxed">
+              Ensure you have allowed camera hardware permissions inside your active browser tab.
+            </p>
+          </div>
+        `;
+        lucide.createIcons();
+        showToast("Webcam permissions not granted or camera busy.", "error");
+      });
+    }
+
+    function handleScannedCustomer(scannedText) {
+      if (!scannedText) return;
+      let targetId = "";
+
+      // Smart decoding logic for direct strings vs deep link search parameters
+      if (scannedText.includes("?searchCust=")) {
+        try {
+          const urlObj = new URL(scannedText);
+          targetId = urlObj.searchParams.get("searchCust") || "";
+        } catch(e) {
+          console.warn("URL decoding failed, parsing text representation: ", e);
+        }
+      } else if (scannedText.toUpperCase().startsWith("CUST-")) {
+        targetId = scannedText.trim();
+      } else {
+        // Safe regex fallback checks
+        const matches = scannedText.match(/CUST-\d+/i);
+        if (matches) {
+          targetId = matches[0].toUpperCase();
+        } else {
+          targetId = scannedText.trim();
+        }
+      }
+
+      if (targetId) {
+        const inputField = document.getElementById("directory-search-input");
+        inputField.value = targetId;
+        filterCustomerDirectory();
+
+        const match = systemState && systemState.customers.find(c => c.customer_id.toUpperCase() === targetId.toUpperCase());
+        if (match) {
+          showToast(`Success! Found customer: ${match.name}`, "success");
+        } else {
+          showToast(`ID ${targetId} scanned, but no match found in database.`, "warning");
+        }
+      } else {
+        showToast("Scanned layout did not contain a recognizable Customer ID.", "warning");
+      }
+    }
+
+    function closeQRScannerModal() {
+      const modal = document.getElementById("merchant-qr-scanner-modal");
+      modal.classList.add("hidden");
+
+      if (html5QrScanner) {
+        html5QrScanner.stop().then(() => {
+          html5QrScanner.clear();
+          html5QrScanner = null;
+        }).catch(err => {
+          console.warn("Clean scanner release aborted: ", err);
+          html5QrScanner = null;
+        });
+      }
+    }
+
+    // --- SETTINGS AND ENGINE SCHEMA UPDATES ---
+    async function handleSettingsUpdate(e) {
+      e.preventDefault();
+      const brand = document.getElementById("settings-brand-name").value.trim();
+      const logo = document.getElementById("settings-logo-url").value.trim();
+      const target = parseInt(document.getElementById("settings-reward-target").value);
+      const reward = document.getElementById("settings-reward-name").value.trim();
+      const adminPass = document.getElementById("settings-admin-password").value.trim();
+      const scriptUrl = document.getElementById("settings-api-url").value.trim();
+
+      // Check URL updates to redirect dynamic connections
+      if (scriptUrl !== API_URL) {
+        API_URL = scriptUrl;
+        if (scriptUrl === "") {
+          localStorage.removeItem("asli_masala_api_url");
+        } else {
+          localStorage.setItem("asli_masala_api_url", scriptUrl);
+        }
+      }
+
+      if (IS_OFFLINE_MODE) {
+        systemState.settings = {
+          business_name: brand,
+          logo_url: logo,
+          reward_target: target,
+          reward_name: reward,
+          admin_password: adminPass
+        };
+        saveLocalSimulatorDB();
+        showToast("Local configuration details updated.", "success");
+        await synchronizeEngineState();
+        switchView("admin");
+      } else {
+        showToast("Synchronizing system layout parameters...", "info");
+        try {
+          const res = await fetch(API_URL, {
+            method: "POST",
+            mode: "cors",
+            headers: { "Content-Type": "text/plain" },
+            body: JSON.stringify({
+              action: "updateSettings",
+              businessName: brand,
+              logoUrl: logo,
+              rewardTarget: target,
+              rewardName: reward,
+              adminPassword: adminPass
+            })
+          });
+          const data = await res.json();
+          if (data && data.success) {
+            showToast(data.message, "success");
+            await synchronizeEngineState();
+            switchView("admin");
+          } else {
+            showToast(data.error || "Unable to save cloud settings.", "error");
+          }
+        } catch (err) {
+          showToast("Server network timeout.", "error");
+        }
+      }
+    }
+
+    // --- PROFILE MANAGEMENT IN MODAL ---
+    function toggleEditProfileModal(show) {
+      const modal = document.getElementById("edit-profile-modal");
+      if (show && currentUser) {
+        document.getElementById("edit-profile-name").value = currentUser.name;
+        document.getElementById("edit-profile-password").value = "";
+        modal.classList.remove("hidden");
+      } else {
+        modal.classList.add("hidden");
+      }
+    }
+
+    async function handleProfileUpdate(e) {
+      e.preventDefault();
+      const name = document.getElementById("edit-profile-name").value.trim();
+      const password = document.getElementById("edit-profile-password").value.trim();
+
+      if (IS_OFFLINE_MODE) {
+        const custIdx = systemState.customers.findIndex(c => c.customer_id === currentUser.customer_id);
+        systemState.customers[custIdx].name = name;
+        if (password !== "") {
+          systemState.customers[custIdx].password = password;
+        }
+        currentUser = systemState.customers[custIdx];
+        saveLocalSimulatorDB();
+        showToast("Your loyalty profile was updated successfully.", "success");
+        toggleEditProfileModal(false);
+        renderCustomerDashboard();
+      } else {
+        showToast("Submitting profile updates...", "info");
+        try {
+          const res = await fetch(API_URL, {
+            method: "POST",
+            mode: "cors",
+            headers: { "Content-Type": "text/plain" },
+            body: JSON.stringify({
+              action: "updateProfile",
+              customerId: currentUser.customer_id,
+              name: name,
+              password: password
+            })
+          });
+          const data = await res.json();
+          if (data && data.success) {
+            showToast(data.message, "success");
+            await synchronizeEngineState();
+            toggleEditProfileModal(false);
+            renderCustomerDashboard();
+          } else {
+            showToast(data.error || "Failed to update details.", "error");
+          }
+        } catch (err) {
+          showToast("Network execution issue.", "error");
+        }
+      }
+    }
+
+    // --- TREND CHARTS GENERATION ---
+    function renderRegistrationChart() {
+      const ctx = document.getElementById("registrationTrendChart");
+      if (!ctx) return;
+
+      // Clean old charts to prevent overlapping redraw leaks
+      if (trendsChart) {
+        trendsChart.destroy();
+      }
+
+      // Format registrations over chronological index keys
+      let timelineMap = {};
+      systemState.customers.forEach(cust => {
+        const rawDate = cust.registration_date.split(' ')[0] || "Unknown Date";
+        timelineMap[rawDate] = (timelineMap[rawDate] || 0) + 1;
+      });
+
+      const sortedDates = Object.keys(timelineMap).sort();
+      const dataPoints = sortedDates.map(d => timelineMap[d]);
+
+      trendsChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: sortedDates,
+          datasets: [{
+            label: 'New Loyalty Registrations',
+            data: dataPoints,
+            borderColor: '#D32F2F',
+            backgroundColor: 'rgba(211, 47, 47, 0.08)',
+            fill: true,
+            tension: 0.35,
+            borderWidth: 3.5,
+            pointBackgroundColor: '#111111',
+            pointBorderColor: '#FFFFFF',
+            pointBorderWidth: 2,
+            pointRadius: 5
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: { stepSize: 1, color: '#94a3b8' },
+              grid: { color: 'rgba(226, 232, 240, 0.6)' }
+            },
+            x: {
+              ticks: { color: '#94a3b8' },
+              grid: { display: false }
+            }
+          }
+        }
+      });
+    }
+
+    // --- CSV DIRECTORY EXPORT MODULE ---
+    function exportToCSV() {
+      if (!systemState || systemState.customers.length === 0) {
+        showToast("No records available to export.", "warning");
+        return;
+      }
+
+      let csvRows = [];
+      const headers = ["Customer ID", "Name", "Mobile", "Current Stamps", "Status", "Registration Date"];
+      csvRows.push(headers.join(","));
+
+      systemState.customers.forEach(cust => {
+        const row = [
+          `"${cust.customer_id}"`,
+          `"${cust.name.replace(/"/g, '""')}"`,
+          `"${cust.mobile}"`,
+          `"${cust.current_stamps}"`,
+          `"${cust.reward_status}"`,
+          `"${cust.registration_date}"`
+        ];
+        csvRows.push(row.join(","));
+      });
+
+      const csvContent = "data:text/csv;charset=utf-8," + csvRows.join("\n");
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `asli_masala_customers_${new Date().toISOString().split('T')[0]}.csv`);
+      document.body.appendChild(link);
+      
+      link.click();
+      document.body.removeChild(link);
+      showToast("CSV directory downloaded successfully.", "success");
+    }
+
+    // --- ADMIN CHECKOUT REDIRECT / TERMINAL QR ---
+    function openQRTerminal() {
+      toggleQRTerminal(true);
+      const qrBox = document.getElementById("admin-terminal-qr");
+      qrBox.innerHTML = "";
+
+      const clientUrl = window.location.href.split('?')[0];
+      document.getElementById("admin-terminal-url-display").innerText = clientUrl;
+
+      new QRCode(qrBox, {
+        text: clientUrl,
+        width: 160,
+        height: 160,
+        colorDark: "#111111",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+
+    function toggleQRTerminal(show) {
+      const container = document.getElementById("admin-qr-terminal");
+      if (show) container.classList.remove("hidden");
+      else container.classList.add("hidden");
+    }
+
+    // --- TOASTER ENGINE INTERFACES (ALERT BYPASS SHIELDS) ---
+    function showToast(message, type = "info") {
+      const container = document.getElementById("toast-container");
+      
+      const toast = document.createElement("div");
+      toast.className = "flex items-center gap-3 p-4 rounded-2xl shadow-xl border text-sm font-semibold animate__animated animate__slideInUp animate__faster";
+      
+      let icon = "info";
+      if (type === "success") {
+        toast.className += " bg-emerald-50 text-emerald-800 border-emerald-200";
+        icon = "check-circle-2";
+      } else if (type === "error") {
+        toast.className += " bg-rose-50 text-rose-800 border-rose-200";
+        icon = "alert-octagon";
+      } else if (type === "warning") {
+        toast.className += " bg-amber-50 text-amber-800 border-amber-200";
+        icon = "alert-triangle";
+      } else {
+        toast.className += " bg-slate-900 text-slate-100 border-slate-800";
+        icon = "info";
+      }
+
+      toast.innerHTML = `
+        <i data-lucide="${icon}" class="w-5 h-5 flex-shrink-0"></i>
+        <span>${message}</span>
+      `;
+
+      container.appendChild(toast);
+      lucide.createIcons();
+
+      // Trigger automatic dismissal sequence after 4.5 seconds
+      setTimeout(() => {
+        toast.classList.replace("animate__slideInUp", "animate__fadeOutDown");
+        toast.addEventListener("animationend", () => {
+          toast.remove();
+        });
+      }, 4500);
+    }
+
+    function copyTerminalURLToClipboard() {
+      const displayUrl = document.getElementById("admin-terminal-url-display").innerText;
+      const tempInput = document.createElement("input");
+      tempInput.value = displayUrl;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      
+      try {
+        document.execCommand("copy");
+        showToast("Merchant Link URL copied to clipboard!", "success");
+      } catch (err) {
+        showToast("Manual copying required for safety policies.", "warning");
+      }
+      document.body.removeChild(tempInput);
+    }
+
+    // --- PWA APPLICATION INSTALLATION AGENT ---
+    function setupPWAListeners() {
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        deferredAppPrompt = e;
+        document.getElementById("pwa-install-banner").classList.remove("hidden");
+      });
+    }
+
+    function triggerPWAInstall() {
+      if (!deferredAppPrompt) return;
+      deferredAppPrompt.prompt();
+      deferredAppPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "accepted") {
+          showToast("Thank you for installing our reward program wrapper!", "success");
+        }
+        dismissPWAInstall();
+      });
+    }
+
+    function dismissPWAInstall() {
+      document.getElementById("pwa-install-banner").classList.add("hidden");
+      deferredAppPrompt = null;
+    }
+  </script>
+</body>
+</html>
