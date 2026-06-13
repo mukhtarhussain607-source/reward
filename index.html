@@ -105,33 +105,33 @@
       <div class="bg-white rounded-[2.5rem] shadow-2xl p-8 border border-slate-100 text-center animate__animated animate__fadeIn">
         <div id="landing-logo-container" class="mb-6 flex justify-center">
           <!-- Fallback dynamic SVG logo -->
-          <div class="w-24 h-24 bg-red-50 rounded-full flex items-center justify-center border border-red-100 shadow-inner">
-            <i data-lucide="spice" class="w-12 h-12 text-red-600">🌶️</i>
+          <div class="w-32 h-32 bg-red-50 rounded-full flex items-center justify-center border border-red-100 shadow-inner">
+            <span class="text-6xl">🌶️</span>
           </div>
         </div>
-        <h2 id="welcome-title" class="text-3xl font-extrabold text-slate-900 tracking-tight">Spice Up Your Rewards</h2>
-        <p id="welcome-subtitle" class="text-slate-500 mt-3 leading-relaxed">
-          Unlock premium bonuses, direct free spices, and exclusive customer gifts. Collect stamps with every purchase!
+        <h2 id="welcome-title" class="text-3xl font-extrabold text-slate-900 tracking-tight">Asli Masala Rewards</h2>
+        <p id="welcome-subtitle" class="text-slate-500 mt-2 text-sm leading-relaxed">
+          Collect stamps to unlock premium rewards. Track progress live.
         </p>
 
         <!-- Dynamic Incentive Highlight Card -->
-        <div class="my-8 p-6 bg-gradient-to-br from-slate-50 to-slate-100 rounded-3xl border border-slate-200/60 text-left">
+        <div class="my-6 p-5 bg-gradient-to-br from-slate-50 to-slate-100 rounded-3xl border border-slate-200/60 text-left">
           <h4 class="text-xs font-bold tracking-widest text-red-600 uppercase">CURRENT CAMPAIGN</h4>
           <h3 id="incentive-reward-name" class="text-xl font-bold text-slate-800 mt-1">Free 500g Haldi Powder</h3>
-          <p class="text-slate-500 text-sm mt-1">
+          <p class="text-slate-500 text-xs mt-1">
             Achieve <span id="incentive-target-count" class="font-bold text-slate-900">10</span> loyalty stamps and swap your card for this amazing rewards pack instantly.
           </p>
-          <div class="mt-4 flex items-center gap-2 text-xs font-semibold text-slate-600">
+          <div class="mt-3 flex items-center gap-2 text-xs font-semibold text-slate-600">
             <i data-lucide="check-circle" class="w-4 h-4 text-emerald-500"></i>
-            <span>Register now & get 1 Welcome stamp free!</span>
+            <span>Get 1 Welcome stamp free upon registration!</span>
           </div>
         </div>
 
-        <div class="space-y-4">
-          <button onclick="switchView('register')" class="w-full bg-brand-crimson hover:bg-brand-crimson-hover text-white font-bold py-4 px-6 rounded-2xl shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
+        <div class="space-y-3">
+          <button onclick="switchView('register')" class="w-full bg-brand-crimson hover:bg-brand-crimson-hover text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
             Create Reward Account
           </button>
-          <button onclick="switchView('login')" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 px-6 rounded-2xl shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
+          <button onclick="switchView('login')" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
             Access My Card
           </button>
           <div class="pt-4 border-t border-slate-100 flex justify-center">
@@ -156,7 +156,7 @@
         <form id="login-form" onsubmit="handleLogin(event)" class="mt-8 space-y-5">
           <div>
             <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Registered Mobile</label>
-            <input type="tel" id="login-mobile" placeholder="e.g. 9876543210" required class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition">
+            <input type="tel" id="login-mobile" placeholder="10-Digit Mobile" required maxlength="10" pattern="\d{10}" oninput="this.value = this.value.replace(/\D/g, '')" class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Account Password</label>
@@ -184,11 +184,13 @@
         <form id="register-form" onsubmit="handleRegister(event)" class="mt-8 space-y-4">
           <div>
             <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2.5">Your Full Name</label>
-            <input type="text" id="reg-name" placeholder="John Doe" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-red-500 focus:outline-none transition">
+            <!-- Custom input regex to reject numerics or symbols immediately while typing -->
+            <input type="text" id="reg-name" placeholder="John Doe" required pattern="[A-Za-z\s]+" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-red-500 focus:outline-none transition">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2.5">Mobile Number</label>
-            <input type="tel" id="reg-mobile" placeholder="e.g. 9876543210" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-red-500 focus:outline-none transition">
+            <!-- Custom input regex to limit to exactly 10 numeric characters -->
+            <input type="tel" id="reg-mobile" placeholder="10-Digit Mobile Number" required maxlength="10" pattern="\d{10}" oninput="this.value = this.value.replace(/\D/g, '')" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-red-500 focus:outline-none transition">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2.5">Choose Password</label>
@@ -212,7 +214,7 @@
     <section id="view-customer" class="view hidden max-w-2xl mx-auto py-6">
       
       <!-- Greeting and Header Block -->
-      <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+      <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
         <div>
           <span class="px-3 py-1 bg-red-50 text-red-600 text-xs font-extrabold rounded-full tracking-wide">CUSTOMER PASSPORT</span>
           <h2 class="text-2xl font-black text-slate-800 mt-2">Namaste, <span id="customer-display-name">Guest</span>!</h2>
@@ -230,7 +232,7 @@
       </div>
 
       <!-- Stamp Card Visualization Passport Box -->
-      <div class="bg-white rounded-[2rem] p-6 md:p-8 shadow-lg border border-slate-100 mb-6">
+      <div class="bg-white rounded-[2rem] p-6 shadow-lg border border-slate-100 mb-6">
         <div class="flex justify-between items-center pb-4 border-b border-slate-100 mb-6">
           <div>
             <h3 class="font-extrabold text-lg text-slate-800">Your Stamp Passport</h3>
@@ -251,7 +253,7 @@
             <div>
               <h4 class="font-extrabold text-amber-900 text-lg">Reward Target Unlocked!</h4>
               <p class="text-amber-800 text-sm mt-1">
-                You have collected all requested stamps! Present your phone to our storefront manager to claim your <strong id="reward-target-claim-desc">500g Haldi Powder Free</strong>.
+                Take this passport to store checkout to claim your <strong id="reward-target-claim-desc">500g Haldi Powder Free</strong>.
               </p>
             </div>
           </div>
@@ -262,8 +264,10 @@
       <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-100 text-center">
         <h4 class="text-xs font-bold text-slate-400 tracking-wider uppercase mb-1">STAMP CARD IDENTIFICATION QR</h4>
         <p class="text-slate-500 text-xs mb-4">Let the merchant scan this to easily adjust stamps or process redemptions.</p>
-        <div class="flex justify-center bg-slate-50 p-6 rounded-2xl border border-dashed border-slate-200 max-w-[200px] mx-auto mb-3">
-          <div id="customer-id-qr-box"></div>
+        
+        <!-- Larger and highly visible dynamic QR container frame -->
+        <div class="flex justify-center bg-slate-50 p-8 rounded-3xl border-2 border-dashed border-red-500/30 max-w-[280px] mx-auto mb-3 shadow-inner">
+          <div id="customer-id-qr-box" class="p-3 bg-white rounded-2xl shadow-md"></div>
         </div>
         <p id="customer-id-string" class="text-sm font-bold font-mono tracking-widest text-slate-600">CUST-000000</p>
       </div>
@@ -281,7 +285,7 @@
         <form id="edit-profile-form" onsubmit="handleProfileUpdate(event)" class="space-y-4">
           <div>
             <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Display Name</label>
-            <input type="text" id="edit-profile-name" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500 transition">
+            <input type="text" id="edit-profile-name" required pattern="[A-Za-z\s]+" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500 transition">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-600 uppercase mb-2">New Password</label>
@@ -298,7 +302,7 @@
     <section id="view-admin" class="view hidden space-y-6">
       
       <!-- Admin Subheader Panel -->
-      <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <span class="px-3 py-1 bg-slate-900 text-white text-xs font-extrabold rounded-full tracking-wide uppercase">MANAGEMENT CONTROL SUITE</span>
           <h2 class="text-2xl font-black text-slate-800 mt-2">Asli Masala Admin Dashboard</h2>
@@ -564,13 +568,10 @@
   <!-- FLOATING GLOBAL TOAST CONTAINER -->
   <div id="toast-container" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col gap-3 z-50 w-full max-w-sm px-4"></div>
 
-  <!-- FOOTER BRAND MARK -->
+  <!-- FOOTER BRAND MARK (Cleaned to show only copyright as requested) -->
   <footer class="bg-slate-900 text-slate-500 py-6 text-center text-xs border-t border-slate-800/80">
-    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
-      <p>&copy; 2026 Asli Masala Loyalty Program Engine. Decoupled Architecture Protocol.</p>
-      <p class="font-semibold text-slate-400 flex items-center gap-1.5 justify-center">
-        <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-ping"></span> Safe Sandbox Bypass Shield
-      </p>
+    <div class="max-w-6xl mx-auto px-4">
+      <p>&copy; 2026 Asli Masala Loyalty Program Engine. All Rights Reserved.</p>
     </div>
   </footer>
 
@@ -684,10 +685,18 @@
     };
 
     function initializeThemeStyles() {
-      // Dynamic fallbacks if window changes
       const logoContainer = document.getElementById("landing-logo-container");
+      if (!logoContainer) return;
+      
+      // If a custom logo URL is configured in settings, render it perfectly. Otherwise, render a large, prominent default Chili logo.
       if (systemState && systemState.settings && systemState.settings.logo_url && systemState.settings.logo_url.trim() !== "") {
-        logoContainer.innerHTML = `<img src="${systemState.settings.logo_url}" alt="Logo" class="w-24 h-24 object-contain rounded-2xl">`;
+        logoContainer.innerHTML = `<img src="${systemState.settings.logo_url}" alt="Custom Store Logo" class="w-32 h-32 object-contain rounded-3xl border-4 border-white shadow-xl animate__animated animate__zoomIn">`;
+      } else {
+        logoContainer.innerHTML = `
+          <div class="w-32 h-32 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center border-4 border-white shadow-xl animate__animated animate__pulse animate__infinite">
+            <span class="text-6xl drop-shadow-md">🌶️</span>
+          </div>
+        `;
       }
     }
 
@@ -815,6 +824,9 @@
         if (apiUrlEl) apiUrlEl.value = API_URL || "";
       }
 
+      // Re-trigger dynamic theme logo view changes
+      initializeThemeStyles();
+
       // Re-trigger view structures if user is currently logged in
       if (currentUser) {
         // Refresh logged in customer session object reference directly from updated state
@@ -846,6 +858,12 @@
         return;
       }
 
+      // Strong validation: exactly 10 digits
+      if (!/^\d{10}$/.test(mobile)) {
+        showToast("Please enter a valid 10-digit mobile number.", "error");
+        return;
+      }
+
       const match = systemState.customers.find(c => c.mobile.toString() === mobile && c.password.toString() === pass);
       if (match) {
         currentUser = match;
@@ -864,11 +882,23 @@
       const mobile = document.getElementById("reg-mobile").value.trim();
       const password = document.getElementById("reg-password").value.trim();
 
+      // STRICT VALIDATION 1: Ensure name contains absolutely no numbers/numerics
+      if (/\d/.test(name)) {
+        showToast("Name field cannot contain numbers.", "error");
+        return;
+      }
+
+      // STRICT VALIDATION 2: Ensure mobile number is exactly 10 numeric digits
+      if (!/^\d{10}$/.test(mobile)) {
+        showToast("Mobile number must be exactly 10 digits.", "error");
+        return;
+      }
+
       if (IS_OFFLINE_MODE) {
-        // Simulate local registration with validation
-        const duplicate = systemState.customers.find(c => c.mobile.toString() === mobile);
+        // STRICT VALIDATION 3: Duplicate mobile number check
+        const duplicate = systemState.customers.find(c => c.mobile.toString().trim() === mobile);
         if (duplicate) {
-          showToast("Mobile number is already registered.", "error");
+          showToast("Mobile number is already registered under another account.", "error");
           return;
         }
 
@@ -896,7 +926,7 @@
 
         saveLocalSimulatorDB();
         currentUser = newCustomer;
-        showToast("Registration Successful! Enjoy your free welcome stamp.", "success");
+        showToast("Registered successfully! Enjoy your 1st Free Welcome Stamp.", "success");
         renderAppViewsByState();
         switchView("customer");
         document.getElementById("register-form").reset();
@@ -904,6 +934,13 @@
         // Query live Google Apps Script endpoint securely
         showToast("Submitting your secure registration details...", "info");
         try {
+          // Live Handshake Duplicate Verification check
+          const duplicate = systemState.customers.find(c => c.mobile.toString().trim() === mobile);
+          if (duplicate) {
+            showToast("Mobile number is already registered.", "error");
+            return;
+          }
+
           const res = await fetch(API_URL, {
             method: "POST",
             mode: "cors",
@@ -950,7 +987,7 @@
 
       document.getElementById("card-progress-percentage").innerText = progressPercent + "%";
       
-      // Render beautiful stamp passport cells
+      // Render beautiful premium stamp passport cells
       const grid = document.getElementById("stamp-grid");
       if (grid) {
         grid.innerHTML = "";
@@ -960,18 +997,22 @@
           cell.className = "stamp-cell-animate aspect-square rounded-2xl flex flex-col items-center justify-center border-2 transition-all duration-300 relative overflow-hidden shadow-sm";
           
           if (i <= currentStamps) {
-            cell.className += " bg-red-50 border-red-500 scale-95 shadow-md";
+            // Highly professional, rich stamp active design
+            cell.className += " bg-gradient-to-br from-red-600 to-red-800 border-amber-400 scale-95 shadow-md border-2";
             cell.innerHTML = `
-              <div class="absolute inset-0 bg-red-600 rounded-2xl flex flex-col items-center justify-center text-white scale-95 shadow-inner">
-                <i data-lucide="check-circle" class="w-6 h-6 mb-1"></i>
-                <span class="text-[9px] font-black tracking-widest">SPICED</span>
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-1">
+                <div class="bg-amber-400 text-slate-900 rounded-full p-1 shadow">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <span class="text-[9px] font-extrabold tracking-widest text-amber-300 mt-1 uppercase">SPICED</span>
               </div>
             `;
           } else {
-            cell.className += " bg-slate-50 border-dashed border-slate-300 hover:border-slate-400";
+            // Clean, minimal, warm-accented premium empty slot design
+            cell.className += " bg-gradient-to-br from-stone-50 to-slate-100 border-slate-300 hover:border-red-500/50 hover:bg-stone-100";
             cell.innerHTML = `
-              <span class="text-sm font-bold text-slate-400 font-mono">${i}</span>
-              <span class="text-[8px] text-slate-300 font-semibold tracking-wider mt-0.5">EMPTY</span>
+              <span class="text-xl font-extrabold text-slate-400 font-mono">${i}</span>
+              <span class="text-[8px] text-slate-400 font-semibold tracking-wider mt-0.5 uppercase">STAMP</span>
             `;
           }
           grid.appendChild(cell);
@@ -995,16 +1036,18 @@
 
     function generateClientQR() {
       const qrBox = document.getElementById("customer-id-qr-box");
+      if (!qrBox) return;
       qrBox.innerHTML = "";
       
       const clientUrl = window.location.href.split('?')[0];
       const codeValue = `${clientUrl}?searchCust=${currentUser.customer_id}`;
 
+      // Increased size configuration for larger, highly visible customer QR (220x220px)
       new QRCode(qrBox, {
         text: codeValue,
-        width: 140,
-        height: 140,
-        colorDark: "#1e293b",
+        width: 220, 
+        height: 220,
+        colorDark: "#111111",
         colorLight: "#ffffff",
         correctLevel: QRCode.CorrectLevel.H
       });
@@ -1432,6 +1475,12 @@
       const name = document.getElementById("edit-profile-name").value.trim();
       const password = document.getElementById("edit-profile-password").value.trim();
 
+      // Ensure edit profile name complies with non-numeric strict validation rules
+      if (/\d/.test(name)) {
+        showToast("Name field cannot contain numbers.", "error");
+        return;
+      }
+
       if (IS_OFFLINE_MODE) {
         const custIdx = systemState.customers.findIndex(c => c.customer_id.toString() === currentUser.customer_id.toString());
         systemState.customers[custIdx].name = name;
@@ -1636,6 +1685,7 @@
       });
     }
 
+    // Trigger installation
     function triggerPWAInstall() {
       if (!deferredAppPrompt) return;
       deferredAppPrompt.prompt();
@@ -1647,6 +1697,7 @@
       });
     }
 
+    // Dismiss installation
     function dismissPWAInstall() {
       const banner = document.getElementById("pwa-install-banner");
       if (banner) banner.classList.add("hidden");
