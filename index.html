@@ -585,6 +585,49 @@
     let trendsChart = null;
     let html5QrScanner = null; // Instantiated QR Engine controller reference
 
+    // --- TOASTER ENGINE INTERFACES (ALERT BYPASS SHIELDS) ---
+    function showToast(message, type = "info") {
+      const container = document.getElementById("toast-container");
+      if (!container) return;
+      
+      const toast = document.createElement("div");
+      toast.className = "flex items-center gap-3 p-4 rounded-2xl shadow-xl border text-sm font-semibold animate__animated animate__slideInUp animate__faster transition-all duration-300";
+      
+      let icon = "info";
+      if (type === "success") {
+        toast.className += " bg-emerald-50 text-emerald-800 border-emerald-200";
+        icon = "check-circle-2";
+      } else if (type === "error") {
+        toast.className += " bg-rose-50 text-rose-800 border-rose-200";
+        icon = "alert-octagon";
+      } else if (type === "warning") {
+        toast.className += " bg-amber-50 text-amber-800 border-amber-200";
+        icon = "alert-triangle";
+      } else {
+        toast.className += " bg-slate-900 text-slate-100 border-slate-800";
+        icon = "info";
+      }
+
+      toast.innerHTML = `
+        <i data-lucide="${icon}" class="w-5 h-5 flex-shrink-0"></i>
+        <span>${message}</span>
+      `;
+
+      container.appendChild(toast);
+      
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+
+      // Trigger automatic dismissal sequence after 4 seconds
+      setTimeout(() => {
+        toast.className = toast.className.replace("animate__slideInUp", "animate__fadeOutDown");
+        toast.addEventListener("animationend", () => {
+          toast.remove();
+        });
+      }, 4000);
+    }
+
     // --- FULL OFFLINE SIMULATOR DATABASE SCHEMA ---
     const LOCAL_DB_KEY = "asli_masala_mock_database";
     const DEFAULT_SIMULATOR_DB = {
@@ -712,34 +755,6 @@
       }
     }
 
-    // Test URL handler in Admin panel
-    async function testGASConnection() {
-      const testUrlInput = document.getElementById("settings-api-url").value.trim();
-      if (!testUrlInput) {
-        showToast("Please enter a valid Web App URL to test.", "warning");
-        return;
-      }
-
-      showToast("Testing server endpoint handshake...", "info");
-      try {
-        // Use text/plain to completely bypass preflight OPTIONS blocks on execution endpoints
-        const res = await fetch(testUrlInput, {
-          method: "POST",
-          mode: "cors",
-          headers: { "Content-Type": "text/plain" },
-          body: JSON.stringify({ action: "testConnection" })
-        });
-        const data = await res.json();
-        if (data && data.success) {
-          showToast("Handshake successful! Server responded: " + data.message, "success");
-        } else {
-          showToast("Failed to connect: " + (data.error || "Response payload empty"), "error");
-        }
-      } catch (e) {
-        showToast("Network Error: Make sure your script is deployed as 'Anyone' and CORS is bypassed.", "error");
-      }
-    }
-
     // --- VIEW ROUTER ENGINE ---
     function switchView(viewId) {
       document.querySelectorAll(".view").forEach(v => v.classList.add("hidden"));
@@ -767,28 +782,43 @@
         document.getElementById("welcome-title")
       ];
       brandTextElements.forEach(el => {
-        if (el && systemState.settings.business_name) {
-          el.innerText = systemState.settings.business_name;
+        if (el && systemState.settings && systemState.settings.business_name) {
+          el.innerText = systemState.settings.business_name.toString();
         }
       });
 
-      // Update Landing Dynamic Cards
-      document.getElementById("incentive-reward-name").innerText = systemState.settings.reward_name;
-      document.getElementById("incentive-target-count").innerText = systemState.settings.reward_target;
-      document.getElementById("card-target-reward-label").innerText = systemState.settings.reward_name;
+      // Update Landing Dynamic Cards safely
+      if (systemState.settings) {
+        if (document.getElementById("incentive-reward-name")) {
+          document.getElementById("incentive-reward-name").innerText = systemState.settings.reward_name || "";
+        }
+        if (document.getElementById("incentive-target-count")) {
+          document.getElementById("incentive-target-count").innerText = systemState.settings.reward_target !== undefined ? systemState.settings.reward_target : "";
+        }
+        if (document.getElementById("card-target-reward-label")) {
+          document.getElementById("card-target-reward-label").innerText = systemState.settings.reward_name || "";
+        }
 
-      // Fill in settings panel placeholders
-      document.getElementById("settings-brand-name").value = systemState.settings.business_name || "";
-      document.getElementById("settings-logo-url").value = systemState.settings.logo_url || "";
-      document.getElementById("settings-reward-target").value = systemState.settings.reward_target || 10;
-      document.getElementById("settings-reward-name").value = systemState.settings.reward_name || "";
-      document.getElementById("settings-admin-password").value = systemState.settings.admin_password || "";
-      document.getElementById("settings-api-url").value = API_URL || "";
+        // Fill in settings panel placeholders safely
+        const brandNameEl = document.getElementById("settings-brand-name");
+        const logoUrlEl = document.getElementById("settings-logo-url");
+        const rewardTargetEl = document.getElementById("settings-reward-target");
+        const rewardNameEl = document.getElementById("settings-reward-name");
+        const adminPassEl = document.getElementById("settings-admin-password");
+        const apiUrlEl = document.getElementById("settings-api-url");
+
+        if (brandNameEl) brandNameEl.value = systemState.settings.business_name || "";
+        if (logoUrlEl) logoUrlEl.value = systemState.settings.logo_url || "";
+        if (rewardTargetEl) rewardTargetEl.value = systemState.settings.reward_target || 10;
+        if (rewardNameEl) rewardNameEl.value = systemState.settings.reward_name || "";
+        if (adminPassEl) adminPassEl.value = systemState.settings.admin_password || "";
+        if (apiUrlEl) apiUrlEl.value = API_URL || "";
+      }
 
       // Re-trigger view structures if user is currently logged in
       if (currentUser) {
         // Refresh logged in customer session object reference directly from updated state
-        const refreshedUser = systemState.customers.find(c => c.customer_id === currentUser.customer_id);
+        const refreshedUser = systemState.customers.find(c => c.customer_id.toString() === currentUser.customer_id.toString());
         if (refreshedUser) {
           currentUser = refreshedUser;
           renderCustomerDashboard();
@@ -907,57 +937,58 @@
     function renderCustomerDashboard() {
       if (!currentUser) return;
 
-      document.getElementById("customer-display-name").innerText = currentUser.name;
-      document.getElementById("customer-display-id").innerText = currentUser.customer_id;
-      document.getElementById("customer-join-date").innerText = currentUser.registration_date.split(' ')[0];
-      document.getElementById("customer-stat-stamps").innerText = currentUser.current_stamps;
+      document.getElementById("customer-display-name").innerText = currentUser.name || "Guest";
+      document.getElementById("customer-display-id").innerText = currentUser.customer_id || "CUST-000000";
+      
+      const joinDateRaw = currentUser.registration_date ? currentUser.registration_date.toString() : "";
+      document.getElementById("customer-join-date").innerText = joinDateRaw.split(' ')[0] || "Loading...";
+      document.getElementById("customer-stat-stamps").innerText = currentUser.current_stamps !== undefined ? currentUser.current_stamps : 0;
 
-      const targetStamps = parseInt(systemState.settings.reward_target) || 10;
+      const targetStamps = (systemState.settings && systemState.settings.reward_target) ? parseInt(systemState.settings.reward_target) : 10;
       const currentStamps = parseInt(currentUser.current_stamps) || 0;
       const progressPercent = Math.min(Math.round((currentStamps / targetStamps) * 100), 100);
 
       document.getElementById("card-progress-percentage").innerText = progressPercent + "%";
       
-      // Render beautiful high-fidelity stamp passport cells
+      // Render beautiful stamp passport cells
       const grid = document.getElementById("stamp-grid");
-      grid.innerHTML = "";
+      if (grid) {
+        grid.innerHTML = "";
 
-      for (let i = 1; i <= targetStamps; i++) {
-        const cell = document.createElement("div");
-        cell.className = "stamp-cell-animate aspect-square rounded-2xl flex flex-col items-center justify-center border-2 transition-all duration-300 relative overflow-hidden shadow-sm";
-        
-        if (i <= currentStamps) {
-          // Stamp Active state (Crimson high depth design)
-          cell.className += " bg-red-50 border-red-500 scale-95 shadow-md";
-          cell.innerHTML = `
-            <div class="absolute inset-0 bg-red-600 rounded-2xl flex flex-col items-center justify-center text-white scale-95 shadow-inner">
-              <i data-lucide="check-circle" class="w-6 h-6 mb-1"></i>
-              <span class="text-[9px] font-black tracking-widest">SPICED</span>
-            </div>
-          `;
-        } else {
-          // Stamp Inactive empty slot state
-          cell.className += " bg-slate-50 border-dashed border-slate-300 hover:border-slate-400";
-          cell.innerHTML = `
-            <span class="text-sm font-bold text-slate-400 font-mono">${i}</span>
-            <span class="text-[8px] text-slate-300 font-semibold tracking-wider mt-0.5">EMPTY</span>
-          `;
+        for (let i = 1; i <= targetStamps; i++) {
+          const cell = document.createElement("div");
+          cell.className = "stamp-cell-animate aspect-square rounded-2xl flex flex-col items-center justify-center border-2 transition-all duration-300 relative overflow-hidden shadow-sm";
+          
+          if (i <= currentStamps) {
+            cell.className += " bg-red-50 border-red-500 scale-95 shadow-md";
+            cell.innerHTML = `
+              <div class="absolute inset-0 bg-red-600 rounded-2xl flex flex-col items-center justify-center text-white scale-95 shadow-inner">
+                <i data-lucide="check-circle" class="w-6 h-6 mb-1"></i>
+                <span class="text-[9px] font-black tracking-widest">SPICED</span>
+              </div>
+            `;
+          } else {
+            cell.className += " bg-slate-50 border-dashed border-slate-300 hover:border-slate-400";
+            cell.innerHTML = `
+              <span class="text-sm font-bold text-slate-400 font-mono">${i}</span>
+              <span class="text-[8px] text-slate-300 font-semibold tracking-wider mt-0.5">EMPTY</span>
+            `;
+          }
+          grid.appendChild(cell);
         }
-        grid.appendChild(cell);
       }
 
-      // Check for Target Milestone completion Confetti & Celebrations
       const prizeBanner = document.getElementById("reward-celebration-banner");
-      document.getElementById("reward-target-claim-desc").innerText = systemState.settings.reward_name;
-
-      if (currentStamps >= targetStamps) {
-        prizeBanner.classList.remove("hidden");
-        triggerLoyaltyConfetti();
-      } else {
-        prizeBanner.classList.add("hidden");
+      if (prizeBanner && systemState.settings) {
+        document.getElementById("reward-target-claim-desc").innerText = systemState.settings.reward_name || "";
+        if (currentStamps >= targetStamps) {
+          prizeBanner.classList.remove("hidden");
+          triggerLoyaltyConfetti();
+        } else {
+          prizeBanner.classList.add("hidden");
+        }
       }
 
-      // Generate dynamic client reference QR identification
       generateClientQR();
       lucide.createIcons();
     }
@@ -966,7 +997,6 @@
       const qrBox = document.getElementById("customer-id-qr-box");
       qrBox.innerHTML = "";
       
-      // Workaround: Prevent reading parent window URL inside standard sandboxed iframes
       const clientUrl = window.location.href.split('?')[0];
       const codeValue = `${clientUrl}?searchCust=${currentUser.customer_id}`;
 
@@ -992,36 +1022,56 @@
 
     // --- ADMINISTRATIVE SUITE LOGIC ---
     function switchToAdminMode() {
+      if (!systemState) {
+        showToast("System database state is still loading. Please try again in a few seconds.", "warning");
+        return;
+      }
       const userPass = prompt("Please input your Administration Credential Password:");
       if (userPass === null) return;
 
-      const adminKey = systemState.settings.admin_password || "admin123";
-      if (userPass === adminKey) {
-        showToast("Administrative credential cleared.", "success");
-        renderAdminDashboard();
+      const adminKey = (systemState.settings && systemState.settings.admin_password) ? systemState.settings.admin_password.toString() : "admin123";
+      if (userPass.toString() === adminKey) {
+        showToast("Administrative Access Granted!", "success");
+        
+        // Render and redirect layout immediately (re-ordered to prevent any charts or DOM anomalies from blocking transitions)
         switchView("admin");
+        
+        try {
+          renderAdminDashboard();
+        } catch (error) {
+          console.error("Non-fatal rendering warning inside dashboard pipeline: ", error);
+          showToast("Dashboard loaded with standard visual warnings.", "warning");
+        }
       } else {
         showToast("Incorrect system key code.", "error");
       }
     }
 
     function renderAdminDashboard() {
-      // 1. Calculate and inject key metrics
-      const countCustomers = systemState.customers.length;
-      const countStamps = systemState.stamps.length;
-      const countRedemptions = systemState.redemptions.length;
+      if (!systemState) return;
 
-      document.getElementById("kpi-total-customers").innerText = countCustomers;
-      document.getElementById("kpi-total-stamps").innerText = countStamps;
-      document.getElementById("kpi-total-claims").innerText = countRedemptions;
+      // 1. Calculate and inject key metrics safely
+      const countCustomers = systemState.customers ? systemState.customers.length : 0;
+      const countStamps = systemState.stamps ? systemState.stamps.length : 0;
+      const countRedemptions = systemState.redemptions ? systemState.redemptions.length : 0;
+
+      const kpiCust = document.getElementById("kpi-total-customers");
+      const kpiStmp = document.getElementById("kpi-total-stamps");
+      const kpiClaims = document.getElementById("kpi-total-claims");
+
+      if (kpiCust) kpiCust.innerText = countCustomers;
+      if (kpiStmp) kpiStmp.innerText = countStamps;
+      if (kpiClaims) kpiClaims.innerText = countRedemptions;
       
       const modeBox = document.getElementById("kpi-engine-mode");
-      if (IS_OFFLINE_MODE) {
-        modeBox.innerText = "LOCAL MEMORY";
-        modeBox.className = "text-sm font-black text-amber-600";
-      } else {
-        modeBox.innerText = "GOOGLE CLOUD";
-        modeBox.className = "text-sm font-black text-emerald-600";
+      if (modeBox) {
+        if (IS_OFFLINE_MODE) {
+          modeBox.innerText = "LOCAL MEMORY";
+          modeBox.className = "text-sm font-black text-amber-600";
+        } else {
+          modeBox.innerText = "GOOGLE CLOUD";
+          modeBox.className = "text-sm font-black text-emerald-600";
+        }
       }
 
       // 2. Load Customer directory table
@@ -1032,54 +1082,58 @@
     }
 
     function filterCustomerDirectory() {
-      const searchVal = document.getElementById("directory-search-input").value.toLowerCase().trim();
+      const searchInput = document.getElementById("directory-search-input");
+      const searchVal = searchInput ? searchInput.value.toLowerCase().trim() : "";
       const tbody = document.getElementById("directory-tbody");
       const emptyState = document.getElementById("directory-empty-state");
+      if (!tbody) return;
       tbody.innerHTML = "";
 
+      if (!systemState || !systemState.customers) return;
+
       let matches = systemState.customers.filter(c => {
-        return c.name.toLowerCase().includes(searchVal) ||
-               c.mobile.toString().includes(searchVal) ||
-               c.customer_id.toLowerCase().includes(searchVal);
+        const name = c.name ? c.name.toString().toLowerCase() : "";
+        const mobile = c.mobile ? c.mobile.toString() : "";
+        const cid = c.customer_id ? c.customer_id.toString().toLowerCase() : "";
+        return name.includes(searchVal) || mobile.includes(searchVal) || cid.includes(searchVal);
       });
 
       if (matches.length === 0) {
-        emptyState.classList.remove("hidden");
+        if (emptyState) emptyState.classList.remove("hidden");
         return;
       }
-      emptyState.classList.add("hidden");
+      if (emptyState) emptyState.classList.add("hidden");
 
       matches.forEach(cust => {
         const tr = document.createElement("tr");
         tr.className = "hover:bg-slate-50 transition border-b border-slate-100";
         
         const stampsVal = parseInt(cust.current_stamps) || 0;
-        const targetVal = parseInt(systemState.settings.reward_target) || 10;
+        const targetVal = (systemState.settings && systemState.settings.reward_target) ? parseInt(systemState.settings.reward_target) : 10;
         const isReadyToRedeem = stampsVal >= targetVal;
 
-        // Custom style depending on stamps threshold balance
         const stampStatusPill = isReadyToRedeem 
           ? `<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-black bg-amber-100 text-amber-800 animate-pulse">Claim Ready!</span>`
           : `<span class="text-xs font-medium text-slate-500">${stampsVal}/${targetVal} Stamps</span>`;
 
         tr.innerHTML = `
           <td class="py-4">
-            <div class="font-bold text-slate-800">${cust.name}</div>
-            <div class="text-[11px] text-slate-400 font-mono mt-0.5">${cust.customer_id} | Ph: ${cust.mobile}</div>
+            <div class="font-bold text-slate-800">${cust.name || 'Anonymous'}</div>
+            <div class="text-[11px] text-slate-400 font-mono mt-0.5">${cust.customer_id || ''} | Ph: ${cust.mobile || ''}</div>
           </td>
           <td class="py-4 text-center">
-            <div class="font-extrabold text-slate-900">${cust.current_stamps}</div>
+            <div class="font-extrabold text-slate-900">${cust.current_stamps !== undefined ? cust.current_stamps : 0}</div>
             <div class="mt-1">${stampStatusPill}</div>
           </td>
           <td class="py-4 text-right">
             <div class="flex items-center justify-end gap-1.5">
-              <button onclick="adminIncrementStamps('${cust.customer_id}', 1)" class="p-1.5 bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white rounded-lg transition" title="Add Stamp">
+              <button onclick="adminIncrementStamps('${cust.customer_id || ''}', 1)" class="p-1.5 bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white rounded-lg transition" title="Add Stamp">
                 <i data-lucide="plus" class="w-4 h-4"></i>
               </button>
-              <button onclick="adminIncrementStamps('${cust.customer_id}', -1)" class="p-1.5 bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white rounded-lg transition" title="Deduct Stamp">
+              <button onclick="adminIncrementStamps('${cust.customer_id || ''}', -1)" class="p-1.5 bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white rounded-lg transition" title="Deduct Stamp">
                 <i data-lucide="minus" class="w-4 h-4"></i>
               </button>
-              <button onclick="adminClaimPrize('${cust.customer_id}')" class="px-2.5 py-1.5 text-xs font-bold rounded-lg transition ${isReadyToRedeem ? 'bg-amber-500 hover:bg-amber-600 text-white' : 'bg-slate-100 text-slate-400 cursor-not-allowed'}" ${isReadyToRedeem ? '' : 'disabled'}>
+              <button onclick="adminClaimPrize('${cust.customer_id || ''}')" class="px-2.5 py-1.5 text-xs font-bold rounded-lg transition ${isReadyToRedeem ? 'bg-amber-500 hover:bg-amber-600 text-white' : 'bg-slate-100 text-slate-400 cursor-not-allowed'}" ${isReadyToRedeem ? '' : 'disabled'}>
                 Claim Free Reward
               </button>
             </div>
@@ -1093,7 +1147,7 @@
     // --- TRANSACTION MODIFICATIONS FOR ADMINISTRATORS ---
     async function adminIncrementStamps(customerId, offset) {
       if (IS_OFFLINE_MODE) {
-        const custIdx = systemState.customers.findIndex(c => c.customer_id === customerId);
+        const custIdx = systemState.customers.findIndex(c => c.customer_id.toString() === customerId.toString());
         if (custIdx === -1) return;
 
         let nextVal = (parseInt(systemState.customers[custIdx].current_stamps) || 0) + offset;
@@ -1106,7 +1160,6 @@
         systemState.customers[custIdx].current_stamps = nextVal;
         systemState.customers[custIdx].reward_status = nextVal >= max ? "Reward Ready!" : "Earning stamps";
 
-        // Append log
         const stampId = "STMP-" + Math.floor(100000 + Math.random() * 900000);
         systemState.stamps.push({
           stamp_id: stampId,
@@ -1119,7 +1172,6 @@
         showToast(`Stamps updated successfully for ${systemState.customers[custIdx].name}.`, "success");
         renderAdminDashboard();
       } else {
-        // Send updates securely to Apps Script Server endpoint
         showToast("Publishing updates online...", "info");
         try {
           const res = await fetch(API_URL, {
@@ -1143,15 +1195,16 @@
     }
 
     async function adminClaimPrize(customerId) {
-      const cust = systemState.customers.find(c => c.customer_id === customerId);
+      const cust = systemState.customers.find(c => c.customer_id.toString() === customerId.toString());
       if (!cust) return;
 
-      if (!confirm(`Are you sure you want to claim the reward of '${systemState.settings.reward_name}' and reset the stamp balance for ${cust.name}?`)) {
+      const rewardName = (systemState.settings && systemState.settings.reward_name) ? systemState.settings.reward_name.toString() : "Reward Package";
+      if (!confirm(`Are you sure you want to claim the reward of '${rewardName}' and reset the stamp balance for ${cust.name}?`)) {
         return;
       }
 
       if (IS_OFFLINE_MODE) {
-        const custIdx = systemState.customers.findIndex(c => c.customer_id === customerId);
+        const custIdx = systemState.customers.findIndex(c => c.customer_id.toString() === customerId.toString());
         systemState.customers[custIdx].current_stamps = 0;
         systemState.customers[custIdx].reward_status = "Earning stamps";
 
@@ -1159,7 +1212,7 @@
         systemState.redemptions.push({
           redemption_id: redemptionId,
           customer_id: customerId,
-          reward_name: systemState.settings.reward_name,
+          reward_name: rewardName,
           date_redeemed: new Date().toISOString().replace('T', ' ').substring(0, 19)
         });
 
@@ -1195,7 +1248,6 @@
       modal.classList.remove("hidden");
       document.getElementById("scanner-searching-placeholder").classList.remove("hidden");
 
-      // Short delay to allow browser UI modal to finish reflowing before triggering webcam
       setTimeout(() => {
         startQRScannerEngine();
       }, 350);
@@ -1232,7 +1284,7 @@
         document.getElementById("scanner-searching-placeholder").classList.add("hidden");
         showToast("Webcam viewport successfully initialized.", "info");
       }).catch(err => {
-        console.error("Camera permissions check or access failed: ", err);
+        console.error("Camera access failed: ", err);
         document.getElementById("scanner-searching-placeholder").innerHTML = `
           <div class="p-4 text-center">
             <i data-lucide="alert-circle" class="w-10 h-10 text-rose-500 mx-auto mb-2"></i>
@@ -1251,18 +1303,16 @@
       if (!scannedText) return;
       let targetId = "";
 
-      // Smart decoding logic for direct strings vs deep link search parameters
       if (scannedText.includes("?searchCust=")) {
         try {
           const urlObj = new URL(scannedText);
           targetId = urlObj.searchParams.get("searchCust") || "";
         } catch(e) {
-          console.warn("URL decoding failed, parsing text representation: ", e);
+          console.warn("URL decoding failed: ", e);
         }
       } else if (scannedText.toUpperCase().startsWith("CUST-")) {
         targetId = scannedText.trim();
       } else {
-        // Safe regex fallback checks
         const matches = scannedText.match(/CUST-\d+/i);
         if (matches) {
           targetId = matches[0].toUpperCase();
@@ -1273,10 +1323,12 @@
 
       if (targetId) {
         const inputField = document.getElementById("directory-search-input");
-        inputField.value = targetId;
+        if (inputField) {
+          inputField.value = targetId;
+        }
         filterCustomerDirectory();
 
-        const match = systemState && systemState.customers.find(c => c.customer_id.toUpperCase() === targetId.toUpperCase());
+        const match = systemState && systemState.customers.find(c => c.customer_id.toString().toUpperCase() === targetId.toUpperCase());
         if (match) {
           showToast(`Success! Found customer: ${match.name}`, "success");
         } else {
@@ -1289,7 +1341,7 @@
 
     function closeQRScannerModal() {
       const modal = document.getElementById("merchant-qr-scanner-modal");
-      modal.classList.add("hidden");
+      if (modal) modal.classList.add("hidden");
 
       if (html5QrScanner) {
         html5QrScanner.stop().then(() => {
@@ -1312,7 +1364,6 @@
       const adminPass = document.getElementById("settings-admin-password").value.trim();
       const scriptUrl = document.getElementById("settings-api-url").value.trim();
 
-      // Check URL updates to redirect dynamic connections
       if (scriptUrl !== API_URL) {
         API_URL = scriptUrl;
         if (scriptUrl === "") {
@@ -1382,7 +1433,7 @@
       const password = document.getElementById("edit-profile-password").value.trim();
 
       if (IS_OFFLINE_MODE) {
-        const custIdx = systemState.customers.findIndex(c => c.customer_id === currentUser.customer_id);
+        const custIdx = systemState.customers.findIndex(c => c.customer_id.toString() === currentUser.customer_id.toString());
         systemState.customers[custIdx].name = name;
         if (password !== "") {
           systemState.customers[custIdx].password = password;
@@ -1426,28 +1477,37 @@
       const ctx = document.getElementById("registrationTrendChart");
       if (!ctx) return;
 
-      // Clean old charts to prevent overlapping redraw leaks
       if (trendsChart) {
-        trendsChart.destroy();
+        try {
+          trendsChart.destroy();
+        } catch(e) {
+          console.warn("Chart release warning: ", e);
+        }
       }
 
-      // Format registrations over chronological index keys
       let timelineMap = {};
-      systemState.customers.forEach(cust => {
-        const rawDate = cust.registration_date.split(' ')[0] || "Unknown Date";
-        timelineMap[rawDate] = (timelineMap[rawDate] || 0) + 1;
-      });
+      if (systemState && systemState.customers) {
+        systemState.customers.forEach(cust => {
+          const regDate = cust.registration_date ? cust.registration_date.toString() : "";
+          const rawDate = regDate.split(' ')[0] || "Unknown Date";
+          timelineMap[rawDate] = (timelineMap[rawDate] || 0) + 1;
+        });
+      }
 
       const sortedDates = Object.keys(timelineMap).sort();
       const dataPoints = sortedDates.map(d => timelineMap[d]);
 
+      // Safeguard empty data arrays
+      const chartLabels = sortedDates.length > 0 ? sortedDates : ["No Data"];
+      const chartData = dataPoints.length > 0 ? dataPoints : [0];
+
       trendsChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: sortedDates,
+          labels: chartLabels,
           datasets: [{
             label: 'New Loyalty Registrations',
-            data: dataPoints,
+            data: chartData,
             borderColor: '#D32F2F',
             backgroundColor: 'rgba(211, 47, 47, 0.08)',
             fill: true,
@@ -1482,7 +1542,7 @@
 
     // --- CSV DIRECTORY EXPORT MODULE ---
     function exportToCSV() {
-      if (!systemState || systemState.customers.length === 0) {
+      if (!systemState || !systemState.customers || systemState.customers.length === 0) {
         showToast("No records available to export.", "warning");
         return;
       }
@@ -1494,7 +1554,7 @@
       systemState.customers.forEach(cust => {
         const row = [
           `"${cust.customer_id}"`,
-          `"${cust.name.replace(/"/g, '""')}"`,
+          `"${cust.name.toString().replace(/"/g, '""')}"`,
           `"${cust.mobile}"`,
           `"${cust.current_stamps}"`,
           `"${cust.reward_status}"`,
@@ -1520,10 +1580,14 @@
     function openQRTerminal() {
       toggleQRTerminal(true);
       const qrBox = document.getElementById("admin-terminal-qr");
+      if (!qrBox) return;
       qrBox.innerHTML = "";
 
       const clientUrl = window.location.href.split('?')[0];
-      document.getElementById("admin-terminal-url-display").innerText = clientUrl;
+      const displayLabel = document.getElementById("admin-terminal-url-display");
+      if (displayLabel) {
+        displayLabel.innerText = clientUrl;
+      }
 
       new QRCode(qrBox, {
         text: clientUrl,
@@ -1537,51 +1601,17 @@
 
     function toggleQRTerminal(show) {
       const container = document.getElementById("admin-qr-terminal");
+      if (!container) return;
       if (show) container.classList.remove("hidden");
       else container.classList.add("hidden");
     }
 
-    // --- TOASTER ENGINE INTERFACES (ALERT BYPASS SHIELDS) ---
-    function showToast(message, type = "info") {
-      const container = document.getElementById("toast-container");
-      
-      const toast = document.createElement("div");
-      toast.className = "flex items-center gap-3 p-4 rounded-2xl shadow-xl border text-sm font-semibold animate__animated animate__slideInUp animate__faster";
-      
-      let icon = "info";
-      if (type === "success") {
-        toast.className += " bg-emerald-50 text-emerald-800 border-emerald-200";
-        icon = "check-circle-2";
-      } else if (type === "error") {
-        toast.className += " bg-rose-50 text-rose-800 border-rose-200";
-        icon = "alert-octagon";
-      } else if (type === "warning") {
-        toast.className += " bg-amber-50 text-amber-800 border-amber-200";
-        icon = "alert-triangle";
-      } else {
-        toast.className += " bg-slate-900 text-slate-100 border-slate-800";
-        icon = "info";
-      }
-
-      toast.innerHTML = `
-        <i data-lucide="${icon}" class="w-5 h-5 flex-shrink-0"></i>
-        <span>${message}</span>
-      `;
-
-      container.appendChild(toast);
-      lucide.createIcons();
-
-      // Trigger automatic dismissal sequence after 4.5 seconds
-      setTimeout(() => {
-        toast.classList.replace("animate__slideInUp", "animate__fadeOutDown");
-        toast.addEventListener("animationend", () => {
-          toast.remove();
-        });
-      }, 4500);
-    }
-
+    // --- UTILITY COPIERS ---
     function copyTerminalURLToClipboard() {
-      const displayUrl = document.getElementById("admin-terminal-url-display").innerText;
+      const displayLabel = document.getElementById("admin-terminal-url-display");
+      if (!displayLabel) return;
+      const displayUrl = displayLabel.innerText;
+      
       const tempInput = document.createElement("input");
       tempInput.value = displayUrl;
       document.body.appendChild(tempInput);
@@ -1601,7 +1631,8 @@
       window.addEventListener("beforeinstallprompt", (e) => {
         e.preventDefault();
         deferredAppPrompt = e;
-        document.getElementById("pwa-install-banner").classList.remove("hidden");
+        const banner = document.getElementById("pwa-install-banner");
+        if (banner) banner.classList.remove("hidden");
       });
     }
 
@@ -1617,7 +1648,8 @@
     }
 
     function dismissPWAInstall() {
-      document.getElementById("pwa-install-banner").classList.add("hidden");
+      const banner = document.getElementById("pwa-install-banner");
+      if (banner) banner.classList.add("hidden");
       deferredAppPrompt = null;
     }
   </script>
