@@ -1422,7 +1422,7 @@ Please verify my checkout total and share UPI payment details! Thank you.`;
         if (data && data.success) {
           systemState = data;
           IS_OFFLINE_MODE = false;
-          showToast("Live Google Sheet Connection Established!", "success");
+          showToast("Live Connection Established!", "success");
         } else {
           throw new Error(data.error || "Execution error reading payload.");
         }
